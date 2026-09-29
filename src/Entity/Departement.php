@@ -24,6 +24,9 @@ class Departement
     #[ORM\OneToMany(targetEntity: Commune::class, mappedBy: 'departement')]
     private Collection $departement_commune;
 
+    #[ORM\Column(length: 255)]
+    private ?string $Numero = null;
+
     public function __construct()
     {
         $this->departement_commune = new ArrayCollection();
@@ -82,4 +85,6 @@ class Departement
 
         return $this;
     }
+
+    
 }
