@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}AnneeAnterieur index{% endblock %}
+
+{% block body %}
+    <h1>AnneeAnterieur index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Annee</th>
+                <th>Classe</th>
+                <th>Uneoption</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for annee_anterieur in annee_anterieurs %}
+            <tr>
+                <td>{{ annee_anterieur.id }}</td>
+                <td>{{ annee_anterieur.annee }}</td>
+                <td>{{ annee_anterieur.Classe }}</td>
+                <td>{{ annee_anterieur.uneoption }}</td>
+                <td>
+                    <a href="{{ path('app_annee_anterieur_show', {'id': annee_anterieur.id}) }}">show</a>
+                    <a href="{{ path('app_annee_anterieur_edit', {'id': annee_anterieur.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_annee_anterieur_new') }}">Create new</a>
+{% endblock %}

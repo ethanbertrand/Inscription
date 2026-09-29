@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}MDL index{% endblock %}
+
+{% block body %}
+    <h1>MDL index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Cheque</th>
+                <th>Photo</th>
+                <th>Affichage</th>
+                <th>Adhesion</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for m_d_l in m_d_ls %}
+            <tr>
+                <td>{{ m_d_l.id }}</td>
+                <td>{{ m_d_l.cheque ? 'Yes' : 'No' }}</td>
+                <td>{{ m_d_l.photo ? 'Yes' : 'No' }}</td>
+                <td>{{ m_d_l.affichage ? 'Yes' : 'No' }}</td>
+                <td>{{ m_d_l.adhesion ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('app_m_d_l_show', {'id': m_d_l.id}) }}">show</a>
+                    <a href="{{ path('app_m_d_l_edit', {'id': m_d_l.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_m_d_l_new') }}">Create new</a>
+{% endblock %}

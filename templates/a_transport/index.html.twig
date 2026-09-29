@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ATransport index{% endblock %}
+
+{% block body %}
+    <h1>ATransport index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for a_transport in a_transports %}
+            <tr>
+                <td>{{ a_transport.id }}</td>
+                <td>
+                    <a href="{{ path('app_a_transport_show', {'id': a_transport.id}) }}">show</a>
+                    <a href="{{ path('app_a_transport_edit', {'id': a_transport.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="2">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_a_transport_new') }}">Create new</a>
+{% endblock %}

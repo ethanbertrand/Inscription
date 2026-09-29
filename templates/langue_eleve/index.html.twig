@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}LangueEleve index{% endblock %}
+
+{% block body %}
+    <h1>LangueEleve index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for langue_eleve in langue_eleves %}
+            <tr>
+                <td>{{ langue_eleve.id }}</td>
+                <td>
+                    <a href="{{ path('app_langue_eleve_show', {'id': langue_eleve.id}) }}">show</a>
+                    <a href="{{ path('app_langue_eleve_edit', {'id': langue_eleve.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="2">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_langue_eleve_new') }}">Create new</a>
+{% endblock %}

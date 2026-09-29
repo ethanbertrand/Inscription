@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Eleve index{% endblock %}
+
+{% block body %}
+    <h1>Eleve index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Num_securite_scoial</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Date_naissance</th>
+                <th>Adresse</th>
+                <th>Num_Tel</th>
+                <th>Mail</th>
+                <th>Sexe</th>
+                <th>Num_Assurance_scolaire</th>
+                <th>Tel_Urgence</th>
+                <th>Date_Vaccin</th>
+                <th>Remarque_sante</th>
+                <th>Num_tel_domicile</th>
+                <th>Accepte_sms</th>
+                <th>Photo</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for eleve in eleves %}
+            <tr>
+                <td>{{ eleve.id }}</td>
+                <td>{{ eleve.NumSecuriteScoial }}</td>
+                <td>{{ eleve.Nom }}</td>
+                <td>{{ eleve.Prenom }}</td>
+                <td>{{ eleve.dateNaissance ? eleve.dateNaissance|date('Y-m-d') : '' }}</td>
+                <td>{{ eleve.Adresse }}</td>
+                <td>{{ eleve.NumTel }}</td>
+                <td>{{ eleve.Mail }}</td>
+                <td>{{ eleve.Sexe }}</td>
+                <td>{{ eleve.NumAssuranceScolaire }}</td>
+                <td>{{ eleve.TelUrgence }}</td>
+                <td>{{ eleve.DateVaccin ? eleve.DateVaccin|date('Y-m-d') : '' }}</td>
+                <td>{{ eleve.RemarqueSante }}</td>
+                <td>{{ eleve.NumTelDomicile }}</td>
+                <td>{{ eleve.accepteSms ? 'Yes' : 'No' }}</td>
+                <td>{{ eleve.Photo }}</td>
+                <td>
+                    <a href="{{ path('app_eleve_show', {'id': eleve.id}) }}">show</a>
+                    <a href="{{ path('app_eleve_edit', {'id': eleve.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="17">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_eleve_new') }}">Create new</a>
+{% endblock %}

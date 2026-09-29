@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}MDL{% endblock %}
+
+{% block body %}
+    <h1>MDL</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ m_d_l.id }}</td>
+            </tr>
+            <tr>
+                <th>Cheque</th>
+                <td>{{ m_d_l.cheque ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Photo</th>
+                <td>{{ m_d_l.photo ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Affichage</th>
+                <td>{{ m_d_l.affichage ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Adhesion</th>
+                <td>{{ m_d_l.adhesion ? 'Yes' : 'No' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_m_d_l_index') }}">back to list</a>
+
+    <a href="{{ path('app_m_d_l_edit', {'id': m_d_l.id}) }}">edit</a>
+
+    {{ include('mdl/_delete_form.html.twig') }}
+{% endblock %}

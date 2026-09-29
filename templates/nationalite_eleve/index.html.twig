@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}NationaliteEleve index{% endblock %}
+
+{% block body %}
+    <h1>NationaliteEleve index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for nationalite_eleve in nationalite_eleves %}
+            <tr>
+                <td>{{ nationalite_eleve.id }}</td>
+                <td>
+                    <a href="{{ path('app_nationalite_eleve_show', {'id': nationalite_eleve.id}) }}">show</a>
+                    <a href="{{ path('app_nationalite_eleve_edit', {'id': nationalite_eleve.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="2">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_nationalite_eleve_new') }}">Create new</a>
+{% endblock %}

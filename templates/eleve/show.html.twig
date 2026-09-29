@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Eleve{% endblock %}
+
+{% block body %}
+    <h1>Eleve</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ eleve.id }}</td>
+            </tr>
+            <tr>
+                <th>Num_securite_scoial</th>
+                <td>{{ eleve.NumSecuriteScoial }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ eleve.Nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ eleve.Prenom }}</td>
+            </tr>
+            <tr>
+                <th>Date_naissance</th>
+                <td>{{ eleve.dateNaissance ? eleve.dateNaissance|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ eleve.Adresse }}</td>
+            </tr>
+            <tr>
+                <th>Num_Tel</th>
+                <td>{{ eleve.NumTel }}</td>
+            </tr>
+            <tr>
+                <th>Mail</th>
+                <td>{{ eleve.Mail }}</td>
+            </tr>
+            <tr>
+                <th>Sexe</th>
+                <td>{{ eleve.Sexe }}</td>
+            </tr>
+            <tr>
+                <th>Num_Assurance_scolaire</th>
+                <td>{{ eleve.NumAssuranceScolaire }}</td>
+            </tr>
+            <tr>
+                <th>Tel_Urgence</th>
+                <td>{{ eleve.TelUrgence }}</td>
+            </tr>
+            <tr>
+                <th>Date_Vaccin</th>
+                <td>{{ eleve.DateVaccin ? eleve.DateVaccin|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Remarque_sante</th>
+                <td>{{ eleve.RemarqueSante }}</td>
+            </tr>
+            <tr>
+                <th>Num_tel_domicile</th>
+                <td>{{ eleve.NumTelDomicile }}</td>
+            </tr>
+            <tr>
+                <th>Accepte_sms</th>
+                <td>{{ eleve.accepteSms ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Photo</th>
+                <td>{{ eleve.Photo }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_eleve_index') }}">back to list</a>
+
+    <a href="{{ path('app_eleve_edit', {'id': eleve.id}) }}">edit</a>
+
+    {{ include('eleve/_delete_form.html.twig') }}
+{% endblock %}
