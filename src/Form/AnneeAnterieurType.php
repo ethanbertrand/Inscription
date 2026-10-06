@@ -5,7 +5,7 @@ namespace App\Form;
 use App\Entity\AnneeAnterieur;
 use App\Entity\Etablissement;
 use App\Entity\Langue;
-use App\Entity\eleve;
+use App\Entity\Eleve;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -28,7 +28,7 @@ class AnneeAnterieurType extends AbstractType
                 'choice_label' => 'id',
             ])
             ->add('annee_eleve', EntityType::class, [
-                'class' => eleve::class,
+                'class' => Eleve::class,
                 'choice_label' => 'id',
             ])
             ->add('etablissement', EntityType::class, [

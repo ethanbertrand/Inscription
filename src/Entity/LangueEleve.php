@@ -16,15 +16,15 @@ class LangueEleve
     private ?int $id = null;
 
     /**
-     * @var Collection<int, langue>
+     * @var Collection<int, Langue>
      */
-    #[ORM\OneToMany(targetEntity: langue::class, mappedBy: 'langueEleve')]
+    #[ORM\OneToMany(targetEntity: Langue::class, mappedBy: 'langueEleve')]
     private Collection $id_langue;
 
     /**
-     * @var Collection<int, eleve>
+     * @var Collection<int, Eleve>
      */
-    #[ORM\OneToMany(targetEntity: eleve::class, mappedBy: 'langueEleve')]
+    #[ORM\OneToMany(targetEntity: Eleve::class, mappedBy: 'langueEleve')]
     private Collection $id_eleve;
 
     public function __construct()
@@ -39,14 +39,14 @@ class LangueEleve
     }
 
     /**
-     * @return Collection<int, langue>
+     * @return Collection<int, Langue>
      */
     public function getIdLangue(): Collection
     {
         return $this->id_langue;
     }
 
-    public function addIdLangue(langue $idLangue): static
+    public function addIdLangue(Langue $idLangue): static
     {
         if (!$this->id_langue->contains($idLangue)) {
             $this->id_langue->add($idLangue);
@@ -56,7 +56,7 @@ class LangueEleve
         return $this;
     }
 
-    public function removeIdLangue(langue $idLangue): static
+    public function removeIdLangue(Langue $idLangue): static
     {
         if ($this->id_langue->removeElement($idLangue)) {
             // set the owning side to null (unless already changed)
@@ -69,14 +69,14 @@ class LangueEleve
     }
 
     /**
-     * @return Collection<int, eleve>
+     * @return Collection<int, Eleve>
      */
     public function getIdEleve(): Collection
     {
         return $this->id_eleve;
     }
 
-    public function addIdEleve(eleve $idEleve): static
+    public function addIdEleve(Eleve $idEleve): static
     {
         if (!$this->id_eleve->contains($idEleve)) {
             $this->id_eleve->add($idEleve);
@@ -86,7 +86,7 @@ class LangueEleve
         return $this;
     }
 
-    public function removeIdEleve(eleve $idEleve): static
+    public function removeIdEleve(Eleve $idEleve): static
     {
         if ($this->id_eleve->removeElement($idEleve)) {
             // set the owning side to null (unless already changed)

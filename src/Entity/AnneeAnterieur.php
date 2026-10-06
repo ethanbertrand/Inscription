@@ -29,7 +29,7 @@ class AnneeAnterieur
     private ?Langue $langue2 = null;
 
     #[ORM\ManyToOne(inversedBy: 'anneeAnterieurs')]
-    private ?eleve $annee_eleve = null;
+    private ?Eleve $annee_eleve = null;
 
     #[ORM\ManyToOne(inversedBy: 'annee_etablissment')]
     private ?Etablissement $etablissement = null;
@@ -106,12 +106,12 @@ class AnneeAnterieur
         return $this;
     }
 
-    public function getAnneeEleve(): ?eleve
+    public function getAnneeEleve(): ?Eleve
     {
         return $this->annee_eleve;
     }
 
-    public function setAnneeEleve(?eleve $annee_eleve): static
+    public function setAnneeEleve(?Eleve $annee_eleve): static
     {
         $this->annee_eleve = $annee_eleve;
 
