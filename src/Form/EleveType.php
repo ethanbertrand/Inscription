@@ -64,19 +64,8 @@ class EleveType extends AbstractType
                 'class' => Classe::class,
                 'choice_label' => 'id',
             ])
-            ->add('nationalites', EntityType::class, [
-                'class' => Nationalite::class,
-                'choice_label' => 'id',
-                'multiple' => true,
-            ])
-            ->add('nationalite', EntityType::class, [
-                'class' => Nationalite::class,
-                'choice_label' => 'id',
-            ])
-            ->add('nationaliteEleve', EntityType::class, [
-                'class' => NationaliteEleve::class,
-                'choice_label' => 'id',
-            ])
+            
+            
             ->add('langueEleve', EntityType::class, [
                 'class' => LangueEleve::class,
                 'choice_label' => 'id',

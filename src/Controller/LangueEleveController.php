@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/langue/eleve')]
+#[Route('/langue_elve')]
 final class LangueEleveController extends AbstractController
 {
     #[Route(name: 'app_langue_eleve_index', methods: ['GET'])]
