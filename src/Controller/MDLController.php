@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/m/d/l')]
+#[Route('/mdl')]
 final class MDLController extends AbstractController
 {
     #[Route(name: 'app_m_d_l_index', methods: ['GET'])]
