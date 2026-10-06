@@ -1,3 +1,77 @@
 body {
-    background-color: skyblue;
+    background: var(--background-default-grey);
+    color: var(--text-default-grey);
+}
+
+.fr-header {
+    border-bottom: 0.25rem solid var(--border-plain-blue-france);
+}
+
+.fr-header__body {
+    background: var(--background-default-grey);
+}
+
+.fr-header__service-title {
+    color: var(--text-title-grey);
+}
+
+.fr-header__service-tagline {
+    color: var(--text-mention-grey);
+}
+
+#contenu {
+    min-height: 60vh;
+    padding-block: 1.5rem 4rem;
+}
+
+#titre-principal {
+    max-width: 38rem;
+}
+
+.fr-text--lead {
+    max-width: 48rem;
+}
+
+.fr-card {
+    height: 100%;
+    background: var(--background-default-grey);
+    border-color: var(--border-default-grey);
+    box-shadow: 0 0.25rem 1rem rgb(0 0 0 / 8%);
+}
+
+.fr-card:hover {
+    box-shadow: 0 0.5rem 1.5rem rgb(0 0 0 / 14%);
+}
+
+.fr-callout {
+    background: var(--background-default-grey);
+    border-color: var(--border-plain-blue-france);
+    box-shadow: 0 0.25rem 1rem rgb(0 0 0 / 8%);
+}
+
+#ma-popup {
+    color: var(--text-default-grey);
+}
+
+#ma-popup::backdrop {
+    background: rgb(0 0 0 / 40%);
+}
+
+#ma-popup button {
+    margin-inline-end: 0.5rem;
+    margin-block-end: 0.5rem;
+}
+
+.fr-footer {
+    background: var(--background-default-grey);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+    }
 }

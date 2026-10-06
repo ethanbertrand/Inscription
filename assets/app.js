@@ -7,4 +7,20 @@ import './stimulus_bootstrap.js';
  */
 import './styles/app.css';
 
-console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
+const themeInputs = document.querySelectorAll('input[name="theme"]');
+const savedTheme = localStorage.getItem('theme');
+const theme = savedTheme === 'dark' ? 'dark' : 'light';
+
+document.documentElement.dataset.frScheme = theme;
+
+themeInputs.forEach((input) => {
+    input.checked = input.value === theme;
+    input.addEventListener('change', () => {
+        if (input.value !== 'light' && input.value !== 'dark') {
+            return;
+        }
+
+        document.documentElement.dataset.frScheme = input.value;
+        localStorage.setItem('theme', input.value);
+    });
+});
