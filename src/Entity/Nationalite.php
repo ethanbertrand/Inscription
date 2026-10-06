@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\NationaliteRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: NationaliteRepository::class)]
@@ -16,8 +18,16 @@ class Nationalite
     #[ORM\Column(length: 255)]
     private ?string $Pays = null;
 
-    #[ORM\ManyToOne(inversedBy: 'id_nationalite')]
-    private ?NationaliteEleve $nationaliteEleve = null;
+    /**
+     * @var Collection<int, NationaliteEleve>
+     */
+    #[ORM\OneToMany(targetEntity: NationaliteEleve::class, mappedBy: 'nationalite_pays')]
+    private Collection $nationaliteEleves;
+
+    public function __construct()
+    {
+        $this->nationaliteEleves = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -43,14 +53,32 @@ class Nationalite
         return $this;
     }
 
-    public function getNationaliteEleve(): ?NationaliteEleve
+    /**
+     * @return Collection<int, NationaliteEleve>
+     */
+    public function getNationaliteEleves(): Collection
     {
-        return $this->nationaliteEleve;
+        return $this->nationaliteEleves;
     }
 
-    public function setNationaliteEleve(?NationaliteEleve $nationaliteEleve): static
+    public function addNationaliteElefe(NationaliteEleve $nationaliteElefe): static
     {
-        $this->nationaliteEleve = $nationaliteEleve;
+        if (!$this->nationaliteEleves->contains($nationaliteElefe)) {
+            $this->nationaliteEleves->add($nationaliteElefe);
+            $nationaliteElefe->setNationalitePays($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNationaliteElefe(NationaliteEleve $nationaliteElefe): static
+    {
+        if ($this->nationaliteEleves->removeElement($nationaliteElefe)) {
+            // set the owning side to null (unless already changed)
+            if ($nationaliteElefe->getNationalitePays() === $this) {
+                $nationaliteElefe->setNationalitePays(null);
+            }
+        }
 
         return $this;
     }

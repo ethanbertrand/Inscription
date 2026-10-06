@@ -84,15 +84,7 @@ class Eleve
     /**
      * @var Collection<int, Nationalite>
      */
-    #[ORM\ManyToMany(targetEntity: Nationalite::class, mappedBy: 'nationalite_eleve')]
-    private Collection $nationalites;
-
-    #[ORM\ManyToOne(inversedBy: 'nationalite_eleve')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Nationalite $nationalite = null;
-
-    #[ORM\ManyToOne(inversedBy: 'id_eleve')]
-    private ?NationaliteEleve $nationaliteEleve = null;
+    
 
     #[ORM\ManyToOne(inversedBy: 'id_eleve')]
     private ?LangueEleve $langueEleve = null;
@@ -112,10 +104,17 @@ class Eleve
     #[ORM\ManyToOne(inversedBy: 'id_eleve')]
     private ?ATransport $aTransport = null;
 
+    /**
+     * @var Collection<int, NationaliteEleve>
+     */
+    #[ORM\OneToMany(targetEntity: NationaliteEleve::class, mappedBy: 'eleve_nation')]
+    private Collection $nationaliteEleves;
+
     public function __construct()
     {
         $this->nationalites = new ArrayCollection();
         $this->anneeAnterieurs = new ArrayCollection();
+        $this->nationaliteEleves = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -377,56 +376,7 @@ class Eleve
 
     
 
-    /**
-     * @return Collection<int, Nationalite>
-     */
-    public function getNationalites(): Collection
-    {
-        return $this->nationalites;
-    }
-
-    public function addNationalite(Nationalite $nationalite): static
-    {
-        if (!$this->nationalites->contains($nationalite)) {
-            $this->nationalites->add($nationalite);
-            $nationalite->addNationaliteEleve($this);
-        }
-
-        return $this;
-    }
-
-    public function removeNationalite(Nationalite $nationalite): static
-    {
-        if ($this->nationalites->removeElement($nationalite)) {
-            $nationalite->removeNationaliteEleve($this);
-        }
-
-        return $this;
-    }
-
-    public function getNationalite(): ?Nationalite
-    {
-        return $this->nationalite;
-    }
-
-    public function setNationalite(?Nationalite $nationalite): static
-    {
-        $this->nationalite = $nationalite;
-
-        return $this;
-    }
-
-    public function getNationaliteEleve(): ?NationaliteEleve
-    {
-        return $this->nationaliteEleve;
-    }
-
-    public function setNationaliteEleve(?NationaliteEleve $nationaliteEleve): static
-    {
-        $this->nationaliteEleve = $nationaliteEleve;
-
-        return $this;
-    }
+    
 
     public function getLangueEleve(): ?LangueEleve
     {
@@ -502,6 +452,36 @@ class Eleve
     public function setATransport(?ATransport $aTransport): static
     {
         $this->aTransport = $aTransport;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, NationaliteEleve>
+     */
+    public function getNationaliteEleves(): Collection
+    {
+        return $this->nationaliteEleves;
+    }
+
+    public function addNationaliteElefe(NationaliteEleve $nationaliteElefe): static
+    {
+        if (!$this->nationaliteEleves->contains($nationaliteElefe)) {
+            $this->nationaliteEleves->add($nationaliteElefe);
+            $nationaliteElefe->setEleveNation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNationaliteElefe(NationaliteEleve $nationaliteElefe): static
+    {
+        if ($this->nationaliteEleves->removeElement($nationaliteElefe)) {
+            // set the owning side to null (unless already changed)
+            if ($nationaliteElefe->getEleveNation() === $this) {
+                $nationaliteElefe->setEleveNation(null);
+            }
+        }
 
         return $this;
     }

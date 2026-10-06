@@ -3,8 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Nationalite;
-use App\Entity\NationaliteEleve;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,10 +13,6 @@ class NationaliteType extends AbstractType
     {
         $builder
             ->add('Pays')
-            ->add('nationaliteEleve', EntityType::class, [
-                'class' => NationaliteEleve::class,
-                'choice_label' => 'id',
-            ])
         ;
     }
 
