@@ -42,45 +42,55 @@ class EleveType extends AbstractType
             ->add('Photo')
             ->add('regime', EntityType::class, [
                 'class' => Regime::class,
-                'choice_label' => 'id',
+                'choice_label' => 'regime',
+                'placeholder' => 'Sélectionnez un régime',
             ])
             ->add('assuranceScolaire', EntityType::class, [
                 'class' => AssuranceScolaire::class,
                 'choice_label' => 'id',
+                'placeholder' => 'Sélectionnez une assurance scolaire',
             ])
             ->add('centreSecuriteSocial', EntityType::class, [
                 'class' => CentreSecuriteSocial::class,
                 'choice_label' => 'id',
+                'placeholder' => 'Sélectionnez un centre de sécurité sociale',
             ])
             ->add('medecin', EntityType::class, [
                 'class' => Medecin::class,
                 'choice_label' => 'id',
+                'placeholder' => 'Sélectionnez un médecin',
             ])
             ->add('mDL', EntityType::class, [
                 'class' => MDL::class,
                 'choice_label' => 'id',
+                'placeholder' => 'Sélectionnez si vous voulez adhérer à la MDL',
             ])
             ->add('classe', EntityType::class, [
                 'class' => Classe::class,
                 'choice_label' => 'id',
+                'placeholder' => 'Sélectionnez une classe',
             ])
             
             
             ->add('langueEleve', EntityType::class, [
                 'class' => LangueEleve::class,
                 'choice_label' => 'id',
+                'placeholder' => 'Sélectionnez une langue',
             ])
             ->add('parentsEleve', EntityType::class, [
                 'class' => ParentsEleve::class,
                 'choice_label' => 'id',
+                'placeholder' => 'Sélectionnez un parent',
             ])
             ->add('commune', EntityType::class, [
                 'class' => Commune::class,
                 'choice_label' => 'id',
+                'placeholder' => 'Sélectionnez une commune',
             ])
             ->add('aTransport', EntityType::class, [
                 'class' => ATransport::class,
                 'choice_label' => 'id',
+                'placeholder' => 'Sélectionnez un mode de transport',
             ])
         ;
     }

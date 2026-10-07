@@ -1,11 +1,1 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}New Langue{% endblock %}
-
-{% block body %}
-    <h1>Create new Langue</h1>
-
-    {{ include('langue/_form.html.twig') }}
-
-    <a href="{{ path('app_langue_index') }}">back to list</a>
-{% endblock %}
+{% include '_crud_new.html.twig' with { entity_label: 'une langue', list_route: 'app_langue_index', form_template: 'langue/_form.html.twig' } %}

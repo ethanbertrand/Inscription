@@ -1,11 +1,1 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}New Classe{% endblock %}
-
-{% block body %}
-    <h1>Create new Classe</h1>
-
-    {{ include('classe/_form.html.twig') }}
-
-    <a href="{{ path('app_classe_index') }}">back to list</a>
-{% endblock %}
+{% include '_crud_new.html.twig' with { entity_label: 'une classe', list_route: 'app_classe_index', form_template: 'classe/_form.html.twig' } %}

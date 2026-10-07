@@ -1,11 +1,1 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}New NationaliteEleve{% endblock %}
-
-{% block body %}
-    <h1>Create new NationaliteEleve</h1>
-
-    {{ include('nationalite_eleve/_form.html.twig') }}
-
-    <a href="{{ path('app_nationalite_eleve_index') }}">back to list</a>
-{% endblock %}
+{% include '_crud_new.html.twig' with { entity_label: 'une nationalité d’élève', list_route: 'app_nationalite_eleve_index', form_template: 'nationalite_eleve/_form.html.twig' } %}

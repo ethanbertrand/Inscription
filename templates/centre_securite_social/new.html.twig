@@ -1,11 +1,1 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}New CentreSecuriteSocial{% endblock %}
-
-{% block body %}
-    <h1>Create new CentreSecuriteSocial</h1>
-
-    {{ include('centre_securite_social/_form.html.twig') }}
-
-    <a href="{{ path('app_centre_securite_social_index') }}">back to list</a>
-{% endblock %}
+{% include '_crud_new.html.twig' with { entity_label: 'un centre de sécurité sociale', list_route: 'app_centre_securite_social_index', form_template: 'centre_securite_social/_form.html.twig' } %}

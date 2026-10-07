@@ -1,11 +1,1 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}New ParentsEleve{% endblock %}
-
-{% block body %}
-    <h1>Create new ParentsEleve</h1>
-
-    {{ include('parents_eleve/_form.html.twig') }}
-
-    <a href="{{ path('app_parents_eleve_index') }}">back to list</a>
-{% endblock %}
+{% include '_crud_new.html.twig' with { entity_label: 'un parent d’élève', list_route: 'app_parents_eleve_index', form_template: 'parents_eleve/_form.html.twig' } %}
