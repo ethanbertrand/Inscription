@@ -49,8 +49,5 @@ class ScolariteType extends AbstractType
             ->add('Num_Assurance_scolaire');
     }
 
-    public function configureOptions(OptionsResolver $resolver): void
-    {
-        $resolver->setDefaults(['data_class' => Eleve::class]);
-    }
+
 }

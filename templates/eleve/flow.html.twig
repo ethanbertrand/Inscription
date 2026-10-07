@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ eleve.id ? 'Modifier' : 'Créer' }} un élève{% endblock %}
+
+{% block body %}
+    <main id="contenu">
+        <div class="fr-container">
+            <nav class="fr-breadcrumb" aria-label="Vous êtes ici :">
+                <ol class="fr-breadcrumb__list">
+                    <li>
+                        <a class="fr-breadcrumb__link" href="{{ path('app_acceuil') }}">Accueil</a>
+                    </li>
+                    <li>
+                        <a class="fr-breadcrumb__link" href="{{ path('app_eleve_index') }}">Élèves</a>
+                    </li>
+                    <li>
+                        <a class="fr-breadcrumb__link" aria-current="page">
+                            {{ eleve.id ? 'Modifier' : 'Créer' }} un élève
+                        </a>
+                    </li>
+                </ol>
+            </nav>
+
+            <section class="crud-page flow-page" aria-labelledby="titre-page">
+                <div class="crud-page__intro">
+                    <p class="fr-badge fr-badge--blue-france">Inscription</p>
+                    <h1 id="titre-page">{{ eleve.id ? 'Modifier' : 'Créer' }} un élève</h1>
+                    <p class="fr-text--lead">
+                        Complétez les étapes successives pour {{ eleve.id ? 'mettre à jour le dossier' : 'créer le dossier' }}
+                        de l'élève.
+                    </p>
+                </div>
+
+                <turbo-frame id="eleve-flow" class="flow-card">
+                    <div class="flow-progress" aria-labelledby="titre-progression">
+                        <h2 id="titre-progression" class="fr-sr-only">Progression du formulaire</h2>
+                        <p class="flow-progress__label">
+                            Étape {{ form_flow_step_index(form) + 1 }} sur {{ form_flow_total_steps(form) }}
+                        </p>
+                        <p class="flow-progress__current">{{ form_flow_current_step(form) }}</p>
+                        <ol class="flow-steps">
+                            {% for step in form.vars.visible_steps %}
+                                <li class="{{ step.is_current_step ? 'flow-step--current' : '' }}"
+                                    {% if step.is_current_step %}aria-current="step"{% endif %}>
+                                    <span class="flow-step__number">{{ loop.index }}</span>
+                                    <span>{{ step.name }}</span>
+                                </li>
+                            {% endfor %}
+                        </ol>
+                    </div>
+
+                    <div class="flow-form">
+{{ form_start(form, { attr: { class: 'crud-form', 'data-turbo': 'false' } }) }}
+    {{ form_errors(form) }}
+    <div class="crud-form__fields">
+        {{ form_widget(form) }}
+    </div>
+{{ form_end(form) }}
+                    </div>
+                </turbo-frame>
+
+                <a class="fr-link fr-icon-arrow-left-line fr-link--icon-left crud-back-link"
+                   href="{{ path('app_eleve_index') }}">
+                    Retour à la liste des élèves
+                </a>
+            </section>
+        </div>
+    </main>
+{% endblock %}

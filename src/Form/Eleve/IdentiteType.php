@@ -33,8 +33,5 @@ class IdentiteType extends AbstractType
             ->add('Num_securite_scoial');
     }
 
-    public function configureOptions(OptionsResolver $resolver): void
-    {
-        $resolver->setDefaults(['data_class' => Eleve::class]);
-    }
+
 }

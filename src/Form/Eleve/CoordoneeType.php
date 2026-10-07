@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\Eleve;
 
 use App\Entity\ATransport;
 use App\Entity\AssuranceScolaire;
@@ -37,8 +37,5 @@ class CoordoneeType extends AbstractType
             ->add('accepte_sms');
     }
 
-    public function configureOptions(OptionsResolver $resolver): void
-    {
-        $resolver->setDefaults(['data_class' => Eleve::class]);
-    }
+
 }
