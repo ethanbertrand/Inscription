@@ -18,6 +18,7 @@ class CommuneType extends AbstractType
             ->add('departement', EntityType::class, [
                 'class' => Departement::class,
                 'choice_label' => 'libelle',
+                
             ])
         ;
     }

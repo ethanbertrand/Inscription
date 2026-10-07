@@ -24,6 +24,9 @@ class Departement
     #[ORM\OneToMany(targetEntity: Commune::class, mappedBy: 'departement')]
     private Collection $departement_commune;
 
+    #[ORM\Column(length: 255)]
+    private ?string $Numéro = null;
+
     
 
     public function __construct()
@@ -81,6 +84,18 @@ class Departement
                 $departementCommune->setDepartement(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getNuméro(): ?string
+    {
+        return $this->Numéro;
+    }
+
+    public function setNuméro(string $Numéro): static
+    {
+        $this->Numéro = $Numéro;
 
         return $this;
     }

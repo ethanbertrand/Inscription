@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page 1{% endblock %}
+
+{% block body %}
+    {% include 'header.html.twig' %}
+    
+
+
+    <main id="contenu">
+        <div class="fr-container">
+            <nav role="navigation" class="fr-breadcrumb" aria-label="Vous êtes ici :">
+                <button class="fr-breadcrumb__button" aria-expanded="false" aria-controls="breadcrumb-1">
+                    Voir le fil d’Ariane
+                </button>
+                <div class="fr-collapse" id="breadcrumb-1">
+                    <ol class="fr-breadcrumb__list">
+                        <li>
+                            <a class="fr-breadcrumb__link" aria-current="page">Accueil</a>
+                        </li>
+                    </ol>
+                </div>
+            </nav>
+
+            <section class="fr-mb-8w" aria-labelledby="titre-principal">
+                <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--middle">
+                    <div class="fr-col-12 fr-col-md-8">
+                        <p class="fr-badge fr-badge--blue-france fr-mb-2w">Service d'inscription</p>
+                        <h1 id="titre-principal">Information personnelles de l'étudiant</h1>
+                        <br>
+                        <p>Pour cette première partie, nous allons vous demander ls informations personnelles de l'élève :</p >
+                        <br>
+                        
+                            <div class="fr-grid-row fr-grid-row--gutters">
+                                <div class="fr-col-12 fr-col-md-6">
+                                    <label for="nom">Nom :</label>
+                                    <input type="text" id="nom" name="nom" required>
+                                </div>
+                                <div class="fr-col-12 fr-col-md-6">
+                                    <label for="prenom">Prénom :</label>
+                                    <input type="text" id="prenom" name="prenom" required>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="fr-grid-row fr-grid-row--gutters">
+                                <div class="fr-col-12 fr-col-md-6">
+                                    <label for="date_naissance">Date de naissance :</label>
+                                    <input type="date" id="date_naissance" name="date_naissance" required>
+                                </div>
+                                <div class="fr-col-12 fr-col-md-6">
+                                    <label for="lieu_naissance">Lieu de naissance :</label>
+                                    <input type="text" id="lieu_naissance" name="lieu_naissance" required>
+                                </div>
+                                <div class="fr-col-12 fr-col-md-6">
+                                    <label for="adresse">Département naissance :</label>
+                                    </label>
+                                    <input type="number" id="adresse" name="adresse" required>
+                                </div>
+                                <div class="fr-col-12 fr-col-md-6">
+                                    <label for="nationalite">Nationalité :</label>
+                                    <input type="text" id="nationalite" name="nationalite" required>
+                                </div>
+                                <div class="fr-col-12 fr-col-md-6">
+                                    <label for="sexe">Sexe :</label>
+                                    <input type="text" id="sexe" name="sexe" required>
+                                </div>
+                            </div>
+                            <br>
+                            <a class="fr-btn fr-btn--secondary" href="{{ path('app_acceuil') }}">Retour à l'accueil</a>    
+                    </div>
+                </div>
+            </section>
+
+
+
+           
+        </div>
+    </main>
+
+{% include 'footer.html.twig' %}
+{% endblock %}
