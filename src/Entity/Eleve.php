@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Entity;
-
+use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\EleveRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -16,66 +16,87 @@ class Eleve
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
+    #[Assert\NotBlank(groups: ['identite'])]
+    #[ORM\Column(nullable: true)]
     private ?int $Num_securite_scoial = null;
 
-    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(groups: ['identite'])]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $Nom = null;
 
-    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(groups: ['identite'])]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $Prenom = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Assert\NotNull(groups: ['identite'])]
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTime $date_naissance = null;
-
-    #[ORM\Column(length: 255)]
+    
+    #[Assert\NotBlank(groups: ['coordonee'])]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $Adresse = null;
 
-    #[ORM\Column]
+    #[Assert\NotBlank(groups: ['coordonee'])]
+    #[ORM\Column(nullable: true)]
     private ?int $Num_Tel = null;
 
-    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(groups: ['coordonee'])]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $Mail = null;
 
-    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(groups: ['identite'])]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $Sexe = null;
 
-    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(groups: ['scolarite'])]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $Num_Assurance_scolaire = null;
 
-    #[ORM\Column]
+    #[Assert\NotBlank(groups: ['coordonee'])]
+    #[ORM\Column(nullable: true)]
     private ?int $Tel_Urgence = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Assert\NotNull(groups: ['sante'])]
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTime $Date_Vaccin = null;
 
+    #[Assert\NotBlank(groups: ['sante'])]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $Remarque_sante = null;
 
-    #[ORM\Column]
+    #[Assert\NotBlank(groups: ['coordonee'])]
+    #[ORM\Column(nullable: true)]
     private ?int $Num_tel_domicile = null;
 
-    #[ORM\Column]
+    #[Assert\NotBlank(groups: ['coordonee'])]
+    #[ORM\Column(nullable: true)]
     private ?bool $accepte_sms = null;
 
-    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(groups: ['identite'])]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $Photo = null;
 
+    #[Assert\NotNull(groups: ['scolarite'])]
     #[ORM\ManyToOne(inversedBy: 'regime_eleve')]
     private ?Regime $regime = null;
 
+    #[Assert\NotNull(groups: ['scolarite'])]
     #[ORM\ManyToOne(inversedBy: 'assurance_eleve')]
     private ?AssuranceScolaire $assuranceScolaire = null;
 
+    #[Assert\NotNull(groups: ['sante'])]
     #[ORM\ManyToOne(inversedBy: 'eleve_secu_social')]
     private ?CentreSecuriteSocial $centreSecuriteSocial = null;
 
+    #[Assert\NotNull(groups: ['sante'])]
     #[ORM\ManyToOne(inversedBy: 'medecin_eleve')]
     private ?Medecin $medecin = null;
 
+    #[Assert\NotNull(groups: ['scolarite'])]
     #[ORM\ManyToOne(inversedBy: 'mdl_eleve')]
     private ?MDL $mDL = null;
 
+    #[Assert\NotNull(groups: ['scolarite'])]
     #[ORM\ManyToOne(inversedBy: 'classe_eleve')]
     private ?Classe $classe = null;
 
@@ -86,6 +107,7 @@ class Eleve
      */
     
 
+    #[Assert\NotNull(groups: ['scolarite'])]
     #[ORM\ManyToOne(inversedBy: 'id_eleve')]
     private ?LangueEleve $langueEleve = null;
 
@@ -95,14 +117,23 @@ class Eleve
     #[ORM\OneToMany(targetEntity: AnneeAnterieur::class, mappedBy: 'annee_eleve')]
     private Collection $anneeAnterieurs;
 
+    #[Assert\NotNull(groups: ['parent'])]
     #[ORM\ManyToOne(inversedBy: 'id_eleve')]
     private ?ParentsEleve $parentsEleve = null;
 
+    #[Assert\NotNull(groups: ['coordonee'])]
     #[ORM\ManyToOne(inversedBy: 'Commune_eleve')]
     private ?Commune $commune = null;
 
+    #[Assert\NotNull(groups: ['scolarite'])]
     #[ORM\ManyToOne(inversedBy: 'id_eleve')]
     private ?ATransport $aTransport = null;
+
+    #[ORM\Column(length: 20)]
+    private string $status = 'draft';
+
+    #[ORM\Column(length: 50)]
+    private string $currentStep = 'identite';
 
     /**
      * @var Collection<int, NationaliteEleve>
@@ -127,7 +158,7 @@ class Eleve
         return $this->Num_securite_scoial;
     }
 
-    public function setNumSecuriteScoial(int $Num_securite_scoial): static
+    public function setNumSecuriteScoial(?int $Num_securite_scoial): static
     {
         $this->Num_securite_scoial = $Num_securite_scoial;
 
@@ -139,7 +170,7 @@ class Eleve
         return $this->Nom;
     }
 
-    public function setNom(string $Nom): static
+    public function setNom(?string $Nom): static
     {
         $this->Nom = $Nom;
 
@@ -151,7 +182,7 @@ class Eleve
         return $this->Prenom;
     }
 
-    public function setPrenom(string $Prenom): static
+    public function setPrenom(?string $Prenom): static
     {
         $this->Prenom = $Prenom;
 
@@ -163,7 +194,7 @@ class Eleve
         return $this->date_naissance;
     }
 
-    public function setDateNaissance(\DateTime $date_naissance): static
+    public function setDateNaissance(?\DateTime $date_naissance): static
     {
         $this->date_naissance = $date_naissance;
 
@@ -175,7 +206,7 @@ class Eleve
         return $this->Adresse;
     }
 
-    public function setAdresse(string $Adresse): static
+    public function setAdresse(?string $Adresse): static
     {
         $this->Adresse = $Adresse;
 
@@ -187,7 +218,7 @@ class Eleve
         return $this->Num_Tel;
     }
 
-    public function setNumTel(int $Num_Tel): static
+    public function setNumTel(?int $Num_Tel): static
     {
         $this->Num_Tel = $Num_Tel;
 
@@ -199,7 +230,7 @@ class Eleve
         return $this->Mail;
     }
 
-    public function setMail(string $Mail): static
+    public function setMail(?string $Mail): static
     {
         $this->Mail = $Mail;
 
@@ -211,7 +242,7 @@ class Eleve
         return $this->Sexe;
     }
 
-    public function setSexe(string $Sexe): static
+    public function setSexe(?string $Sexe): static
     {
         $this->Sexe = $Sexe;
 
@@ -223,7 +254,7 @@ class Eleve
         return $this->Num_Assurance_scolaire;
     }
 
-    public function setNumAssuranceScolaire(string $Num_Assurance_scolaire): static
+    public function setNumAssuranceScolaire(?string $Num_Assurance_scolaire): static
     {
         $this->Num_Assurance_scolaire = $Num_Assurance_scolaire;
 
@@ -235,7 +266,7 @@ class Eleve
         return $this->Tel_Urgence;
     }
 
-    public function setTelUrgence(int $Tel_Urgence): static
+    public function setTelUrgence(?int $Tel_Urgence): static
     {
         $this->Tel_Urgence = $Tel_Urgence;
 
@@ -247,7 +278,7 @@ class Eleve
         return $this->Date_Vaccin;
     }
 
-    public function setDateVaccin(\DateTime $Date_Vaccin): static
+    public function setDateVaccin(?\DateTime $Date_Vaccin): static
     {
         $this->Date_Vaccin = $Date_Vaccin;
 
@@ -271,7 +302,7 @@ class Eleve
         return $this->Num_tel_domicile;
     }
 
-    public function setNumTelDomicile(int $Num_tel_domicile): static
+    public function setNumTelDomicile(?int $Num_tel_domicile): static
     {
         $this->Num_tel_domicile = $Num_tel_domicile;
 
@@ -283,7 +314,7 @@ class Eleve
         return $this->accepte_sms;
     }
 
-    public function setAccepteSms(bool $accepte_sms): static
+    public function setAccepteSms(?bool $accepte_sms): static
     {
         $this->accepte_sms = $accepte_sms;
 
@@ -295,7 +326,7 @@ class Eleve
         return $this->Photo;
     }
 
-    public function setPhoto(string $Photo): static
+    public function setPhoto(?string $Photo): static
     {
         $this->Photo = $Photo;
 
@@ -485,4 +516,28 @@ class Eleve
 
         return $this;
     }
+
+    public function getStatus(): string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): static
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+    public function getCurrentStep(): string
+    {
+        return $this->currentStep;
+    }
+
+    public function setCurrentStep(string $currentStep): static
+    {
+        $this->currentStep = $currentStep;
+
+        return $this;
+    }
+
 }

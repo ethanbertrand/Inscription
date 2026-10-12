@@ -1,11 +1,1 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}New Etablissement{% endblock %}
-
-{% block body %}
-    <h1>Create new Etablissement</h1>
-
-    {{ include('etablissement/_form.html.twig') }}
-
-    <a href="{{ path('app_etablissement_index') }}">back to list</a>
-{% endblock %}
+{% include '_crud_new.html.twig' with { entity_label: 'un établissement', list_route: 'app_etablissement_index', form_template: 'etablissement/_form.html.twig' } %}

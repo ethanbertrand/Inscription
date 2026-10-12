@@ -46,9 +46,21 @@ class Regime
         return $this->Regime;
     }
 
+    public function getNom(): ?string
+    {
+        return $this->Regime;
+    }
+
     public function setRegime(string $Regime): static
     {
         $this->Regime = $Regime;
+
+        return $this;
+    }
+
+    public function setNom(string $Nom): static
+    {
+        $this->Regime = $Nom;
 
         return $this;
     }

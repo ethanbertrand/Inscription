@@ -37,6 +37,18 @@ class Transport
         return $this;
     }
 
+    public function getATransport(): ?ATransport
+    {
+        return $this->aTransport;
+    }
+
+    public function setATransport(?ATransport $aTransport): static
+    {
+        $this->aTransport = $aTransport;
+
+        return $this;
+    }
+
     public function getImmatriculation(): ?string
     {
         return $this->Immatriculation;

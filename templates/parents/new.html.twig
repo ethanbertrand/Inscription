@@ -1,11 +1,1 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}New Parents{% endblock %}
-
-{% block body %}
-    <h1>Create new Parents</h1>
-
-    {{ include('parents/_form.html.twig') }}
-
-    <a href="{{ path('app_parents_index') }}">back to list</a>
-{% endblock %}
+{% include '_crud_new.html.twig' with { entity_label: 'un parent', list_route: 'app_parents_index', form_template: 'parents/_form.html.twig' } %}

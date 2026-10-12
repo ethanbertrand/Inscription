@@ -1,11 +1,1 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}New Commune{% endblock %}
-
-{% block body %}
-    <h1>Create new Commune</h1>
-
-    {{ include('commune/_form.html.twig') }}
-
-    <a href="{{ path('app_commune_index') }}">back to list</a>
-{% endblock %}
+{% include '_crud_new.html.twig' with { entity_label: 'une commune', list_route: 'app_commune_index', form_template: 'commune/_form.html.twig' } %}

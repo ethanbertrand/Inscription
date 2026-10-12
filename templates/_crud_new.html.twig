@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer {{ entity_label }}{% endblock %}
+
+{% block body %}
+    <main id="contenu">
+        <div class="fr-container">
+            <nav class="fr-breadcrumb" aria-label="Vous êtes ici :">
+                <ol class="fr-breadcrumb__list">
+                    <li>
+                        <a class="fr-breadcrumb__link" href="{{ path('app_acceuil') }}">Accueil</a>
+                    </li>
+                    <li>
+                        <a class="fr-breadcrumb__link" href="{{ path(list_route) }}">{{ entity_label|capitalize }}</a>
+                    </li>
+                    <li>
+                        <a class="fr-breadcrumb__link" aria-current="page">Créer</a>
+                    </li>
+                </ol>
+            </nav>
+
+            <section class="crud-page" aria-labelledby="titre-page">
+                <div class="crud-page__intro">
+                    <p class="fr-badge fr-badge--blue-france">Inscription</p>
+                    <h1 id="titre-page">Créer {{ entity_label }}</h1>
+                    <p class="fr-text--lead">Renseignez les informations demandées pour créer {{ entity_label }}.</p>
+                </div>
+
+                <div class="crud-form-card">
+                    {{ include('_crud_form.html.twig', { button_label: 'Créer' }) }}
+                </div>
+
+                <a class="fr-link fr-icon-arrow-left-line fr-link--icon-left crud-back-link"
+                   href="{{ path(list_route) }}">
+                    Retour à la liste
+                </a>
+            </section>
+        </div>
+    </main>
+{% endblock %}

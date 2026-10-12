@@ -1,11 +1,1 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}New ATransport{% endblock %}
-
-{% block body %}
-    <h1>Create new ATransport</h1>
-
-    {{ include('a_transport/_form.html.twig') }}
-
-    <a href="{{ path('app_a_transport_index') }}">back to list</a>
-{% endblock %}
+{% include '_crud_new.html.twig' with { entity_label: 'une aide au transport', list_route: 'app_a_transport_index', form_template: 'a_transport/_form.html.twig' } %}

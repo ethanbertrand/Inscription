@@ -1,11 +1,1 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}New Statut{% endblock %}
-
-{% block body %}
-    <h1>Create new Statut</h1>
-
-    {{ include('statut/_form.html.twig') }}
-
-    <a href="{{ path('app_statut_index') }}">back to list</a>
-{% endblock %}
+{% include '_crud_new.html.twig' with { entity_label: 'un statut', list_route: 'app_statut_index', form_template: 'statut/_form.html.twig' } %}
