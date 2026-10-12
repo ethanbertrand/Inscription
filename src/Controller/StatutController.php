@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Statut;
-use App\Form\Statut1Type;
+use App\Form\StatutType;
 use App\Repository\StatutRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,7 +26,7 @@ final class StatutController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $statut = new Statut();
-        $form = $this->createForm(Statut1Type::class, $statut);
+        $form = $this->createForm(StatutType::class, $statut);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -53,7 +53,7 @@ final class StatutController extends AbstractController
     #[Route('/{id}/edit', name: 'app_statut_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Statut $statut, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(Statut1Type::class, $statut);
+        $form = $this->createForm(StatutType::class, $statut);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

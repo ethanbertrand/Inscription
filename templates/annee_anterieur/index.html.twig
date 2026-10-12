@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<title>AnneeAnterieur index</title>
+
+{% block body %}
+    <h1>AnneeAnterieur index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Annee</th>
+                <th>Classe</th>
+                <th>Une_option</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for annee_anterieur in annee_anterieurs %}
+            <tr>
+                <td>{{ annee_anterieur.id }}</td>
+                <td>{{ annee_anterieur.Annee ? annee_anterieur.Annee|date('Y-m-d') : '' }}</td>
+                <td>{{ annee_anterieur.Classe }}</td>
+                <td>{{ annee_anterieur.uneOption }}</td>
+                <td>
+                    <a href="{{ path('app_annee_anterieur_show', {'id': annee_anterieur.id}) }}">show</a>
+                    <a href="{{ path('app_annee_anterieur_edit', {'id': annee_anterieur.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_annee_anterieur_new') }}">Create new</a>
+{% endblock %}

@@ -12,10 +12,9 @@ class MDLType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('cheque')
-            ->add('photo')
-            ->add('affichage')
-            ->add('adhesion')
+            ->add('Cheque')
+            ->add('Photo')
+            ->add('Adhesion')
         ;
     }
 

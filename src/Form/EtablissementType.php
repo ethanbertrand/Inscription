@@ -14,9 +14,9 @@ class EtablissementType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('Nom')
+            ->add('nom')
             ->add('Adresse')
-            ->add('commune_etablissement', EntityType::class, [
+            ->add('Etablissement_commune', EntityType::class, [
                 'class' => Commune::class,
                 'choice_label' => 'id',
             ])

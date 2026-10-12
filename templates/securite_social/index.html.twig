@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<title>SecuriteSocial index</title>
+
+{% block body %}
+    <h1>SecuriteSocial index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Adresse</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for securite_social in securite_socials %}
+            <tr>
+                <td>{{ securite_social.id }}</td>
+                <td>{{ securite_social.Nom }}</td>
+                <td>{{ securite_social.Adresse }}</td>
+                <td>
+                    <a href="{{ path('app_securite_social_show', {'id': securite_social.id}) }}">show</a>
+                    <a href="{{ path('app_securite_social_edit', {'id': securite_social.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_securite_social_new') }}">Create new</a>
+{% endblock %}

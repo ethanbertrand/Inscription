@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+
+<title>Edit AssuranceScolaire</title>
+
+{% block body %}
+    <h1>Edit AssuranceScolaire</h1>
+
+    {{ include('assurance_scolaire/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_assurance_scolaire_index') }}">back to list</a>
+
+    {{ include('assurance_scolaire/_delete_form.html.twig') }}
+{% endblock %}

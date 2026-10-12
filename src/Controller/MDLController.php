@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\MDL;
-use App\Form\MDL1Type;
+use App\Form\MDLType;
 use App\Repository\MDLRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,7 +26,7 @@ final class MDLController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $mDL = new MDL();
-        $form = $this->createForm(MDL1Type::class, $mDL);
+        $form = $this->createForm(MDLType::class, $mDL);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -53,7 +53,7 @@ final class MDLController extends AbstractController
     #[Route('/{id}/edit', name: 'app_m_d_l_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, MDL $mDL, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(MDL1Type::class, $mDL);
+        $form = $this->createForm(MDLType::class, $mDL);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form\Eleve;
+namespace App\Form;
 
 use App\Entity\Departement;
 use Symfony\Component\Form\AbstractType;
@@ -12,7 +12,7 @@ class DepartementType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('libelle')
+            ->add('Libelle')
         ;
     }
 

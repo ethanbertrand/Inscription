@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+
+<title>ATransport</title>
+
+{% block body %}
+    <h1>ATransport</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ a_transport.id }}</td>
+            </tr>
+            <tr>
+                <th>Libelle</th>
+                <td>{{ a_transport.Libelle }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_a_transport_index') }}">back to list</a>
+
+    <a href="{{ path('app_a_transport_edit', {'id': a_transport.id}) }}">edit</a>
+
+    {{ include('a_transport/_delete_form.html.twig') }}
+{% endblock %}

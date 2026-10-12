@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+
+<title>New Nationalite</title>
+
+{% block body %}
+    <h1>Create new Nationalite</h1>
+
+    {{ include('nationalite/_form.html.twig') }}
+
+    <a href="{{ path('app_nationalite_index') }}">back to list</a>
+{% endblock %}

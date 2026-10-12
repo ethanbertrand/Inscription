@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Commune;
-use App\Form\Commune1Type;
+use App\Form\CommuneType;
 use App\Repository\CommuneRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,7 +26,7 @@ final class CommuneController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $commune = new Commune();
-        $form = $this->createForm(Commune1Type::class, $commune);
+        $form = $this->createForm(CommuneType::class, $commune);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -53,7 +53,7 @@ final class CommuneController extends AbstractController
     #[Route('/{id}/edit', name: 'app_commune_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Commune $commune, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(Commune1Type::class, $commune);
+        $form = $this->createForm(CommuneType::class, $commune);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

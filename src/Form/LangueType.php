@@ -2,8 +2,8 @@
 
 namespace App\Form;
 
+use App\Entity\Eleve;
 use App\Entity\Langue;
-use App\Entity\LangueEleve;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -16,9 +16,10 @@ class LangueType extends AbstractType
         $builder
             ->add('Libelle')
             ->add('lv')
-            ->add('langueEleve', EntityType::class, [
-                'class' => LangueEleve::class,
+            ->add('eleves', EntityType::class, [
+                'class' => Eleve::class,
                 'choice_label' => 'id',
+                'multiple' => true,
             ])
         ;
     }
