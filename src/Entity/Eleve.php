@@ -1,7 +1,7 @@
-<?php
-
+<?php 
 namespace App\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\EleveRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -16,57 +16,75 @@ class Eleve
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(groups: ['identite'])]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $num_securite_social = null;
 
+    #[Assert\NotBlank(groups: ['identite'])]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $Nom = null;
 
+    #[Assert\NotBlank(groups: ['identite'])]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $Prenom = null;
 
+    #[Assert\NotNull(groups: ['identite'])]
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTime $date_naissance = null;
 
+    #[Assert\NotBlank(groups: ['coordonnees'])]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $Adresse = null;
 
+    #[Assert\NotBlank(groups: ['coordonnees'])]
     #[ORM\Column(nullable: true)]
     private ?int $Num_tel = null;
 
+    #[Assert\NotBlank(groups: ['coordonnees'])]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $mail = null;
 
+    #[Assert\NotBlank(groups: ['identite'])]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $Sexe = null;
 
+    #[Assert\NotBlank(groups: ['scolarite'])]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $Num_assurance_scolaire = null;
 
+    #[Assert\NotBlank(groups: ['coordonnees'])]
     #[ORM\Column(nullable: true)]
     private ?int $Tel_urgence = null;
 
+    #[Assert\NotNull(groups: ['sante'])]
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTime $date_vaccin = null;
 
+    #[Assert\NotBlank(groups: ['sante'])]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $Remarque_sante = null;
 
+    #[Assert\NotBlank(groups: ['coordonnees'])]
     #[ORM\Column(nullable: true)]
     private ?int $Num_tel_domicile = null;
 
+    #[Assert\NotBlank(groups: ['coordonnees'])]
     #[ORM\Column(nullable: true)]
     private ?bool $accepte_sms = null;
 
+    #[Assert\NotBlank(groups: ['identite'])]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $photo = null;
 
+    #[Assert\NotNull(groups: ['scolarite'])]
     #[ORM\ManyToOne(inversedBy: 'eleves')]
     private ?Classe $classe_eleve = null;
 
+    #[Assert\NotNull(groups: ['sante'])]
     #[ORM\ManyToOne(inversedBy: 'eleves')]
     private ?Medecin $medecin_eleve = null;
 
+    #[Assert\NotNull(groups: ['scolarite'])]
     #[ORM\ManyToOne(inversedBy: 'eleves')]
     private ?MDL $mdl_eleve = null;
 
@@ -76,6 +94,7 @@ class Eleve
     #[ORM\ManyToMany(targetEntity: LesParent::class, inversedBy: 'eleves')]
     private Collection $parent_eleve;
 
+    #[Assert\NotNull(groups: ['coordonnees'])]
     #[ORM\ManyToOne(inversedBy: 'eleves')]
     private ?Commune $Commune_eleve = null;
 
@@ -85,20 +104,30 @@ class Eleve
     /**
      * @var Collection<int, Langue>
      */
+    #[Assert\NotNull(groups: ['scolarite'])]
     #[ORM\ManyToMany(targetEntity: Langue::class, inversedBy: 'eleves')]
     private Collection $langueeleve;
 
+    #[Assert\NotNull(groups: ['sante'])]
     #[ORM\ManyToOne(inversedBy: 'eleves')]
     private ?SecuriteSocial $secu_eleve = null;
 
+    #[ORM\Column(length: 20)]
+    private string $status = 'draft';
+
+    #[ORM\Column(length: 50)]
+    private string $currentStep = 'identite';
+    #[Assert\NotNull(groups: ['scolarite'])]
     #[ORM\ManyToOne(inversedBy: 'eleves')]
     private ?AssuranceScolaire $AssuranceScolaire = null;
 
+    #[Assert\NotNull(groups: ['scolarite'])]
     #[ORM\ManyToOne(inversedBy: 'eleves')]
     private ?Regime $regime_eleve = null;
 
+    #[Assert\NotNull(groups: ['scolarite'])]
     #[ORM\ManyToOne(inversedBy: 'eleves')]
-    private ?Atransport $transport_eleve = null;
+    private ?ATransport $transport_eleve = null;
 
     public function __construct()
     {
@@ -116,7 +145,7 @@ class Eleve
         return $this->num_securite_social;
     }
 
-    public function setNumSecuriteSocial(string $num_securite_social): static
+    public function setNumSecuriteSocial(?string $num_securite_social): static
     {
         $this->num_securite_social = $num_securite_social;
 
@@ -435,15 +464,39 @@ class Eleve
         return $this;
     }
 
-    public function getTransportEleve(): ?Atransport
+    public function getTransportEleve(): ?ATransport
     {
         return $this->transport_eleve;
     }
 
-    public function setTransportEleve(?Atransport $transport_eleve): static
+    public function setTransportEleve(?ATransport $transport_eleve): static
     {
         $this->transport_eleve = $transport_eleve;
 
         return $this;
     }
+
+    public function getStatus(): string
+{
+    return $this->status;
+}
+
+public function setStatus(string $status): static
+{
+    $this->status = $status;
+
+    return $this;
+}
+
+public function getCurrentStep(): string
+{
+    return $this->currentStep;
+}
+
+public function setCurrentStep(string $currentStep): static
+{
+    $this->currentStep = $currentStep;
+
+    return $this;
+}
 }

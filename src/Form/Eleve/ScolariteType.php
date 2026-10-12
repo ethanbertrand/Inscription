@@ -8,6 +8,7 @@ use App\Entity\CentreSecuriteSocial;
 use App\Entity\Classe;
 use App\Entity\Commune;
 use App\Entity\Eleve;
+use App\Entity\Langue;
 use App\Entity\LangueEleve;
 use App\Entity\MDL;
 use App\Entity\Medecin;
@@ -37,7 +38,7 @@ class ScolariteType extends AbstractType
             ])
             ->add('mDL')
             ->add('langueEleve', EntityType::class, [
-                'class' => LangueEleve::class,
+                'class' => Langue::class,
                 'choice_label' => 'nom',
                 'placeholder' => 'Sélectionnez une langue',
             ])

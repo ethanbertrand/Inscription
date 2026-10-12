@@ -13,7 +13,7 @@ use App\Entity\MDL;
 use App\Entity\Medecin;
 use App\Entity\Nationalite;
 use App\Entity\NationaliteEleve;
-use App\Entity\ParentsEleve;
+use App\Entity\LesParent;
 use App\Entity\Regime;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -26,7 +26,7 @@ class ParentType extends AbstractType
     {
         $builder
             ->add('parentsEleve', EntityType::class, [
-                'class' => ParentsEleve::class,
+                'class' => LesParent::class,
                 'choice_label' => 'id',
                 'placeholder' => 'Sélectionnez un parent',
             ]);

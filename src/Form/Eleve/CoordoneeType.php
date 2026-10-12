@@ -25,7 +25,7 @@ class CoordoneeType extends AbstractType
     {
         $builder
             ->add('Adresse')
-            ->add('Commune', EntityType::class, [
+            ->add('Commune_eleve', EntityType::class, [
                 'class' => Commune::class,
                 'choice_label' => 'nom',
                 'placeholder' => 'Sélectionnez une commune',

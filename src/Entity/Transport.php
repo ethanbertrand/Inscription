@@ -23,7 +23,7 @@ class Transport
     private ?TypeTransport $typeTransport = null;
 
     #[ORM\ManyToOne(inversedBy: 'transports')]
-    private ?Atransport $auntransport = null;
+    private ?ATransport $auntransport = null;
 
     public function getId(): ?int
     {
@@ -66,12 +66,12 @@ class Transport
         return $this;
     }
 
-    public function getAuntransport(): ?Atransport
+    public function getAuntransport(): ?ATransport
     {
         return $this->auntransport;
     }
 
-    public function setAuntransport(?Atransport $auntransport): static
+    public function setAuntransport(?ATransport $auntransport): static
     {
         $this->auntransport = $auntransport;
 

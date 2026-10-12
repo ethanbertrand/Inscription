@@ -30,7 +30,7 @@ class IdentiteType extends AbstractType
             ->add('date_naissance', DateType::class, ['widget' => 'single_text'])
             ->add('Sexe')
             ->add('Photo')
-            ->add('Num_securite_scoial');
+            ->add('Num_securite_social');
     }
 
 

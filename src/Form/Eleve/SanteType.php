@@ -8,6 +8,7 @@ use App\Entity\CentreSecuriteSocial;
 use App\Entity\Classe;
 use App\Entity\Commune;
 use App\Entity\Eleve;
+use App\Entity\Etablissement;
 use App\Entity\LangueEleve;
 use App\Entity\MDL;
 use App\Entity\Medecin;
@@ -15,6 +16,7 @@ use App\Entity\Nationalite;
 use App\Entity\NationaliteEleve;
 use App\Entity\ParentsEleve;
 use App\Entity\Regime;
+use App\Entity\SecuriteSocial;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -31,7 +33,7 @@ class SanteType extends AbstractType
                 'placeholder' => 'Sélectionnez un médecin',
             ])
             ->add('centreSecuriteSocial', EntityType::class, [
-                'class' => CentreSecuriteSocial::class,
+                'class' => SecuriteSocial::class,
                 'choice_label' => 'id',
                 'placeholder' => 'Sélectionnez un centre de sécurité sociale',
             ])

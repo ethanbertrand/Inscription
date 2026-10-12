@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Atransport;
+use App\Entity\ATransport;
 use App\Entity\Transport;
 use App\Entity\TypeTransport;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -22,7 +22,7 @@ class TransportType extends AbstractType
                 'choice_label' => 'id',
             ])
             ->add('auntransport', EntityType::class, [
-                'class' => Atransport::class,
+                'class' => ATransport::class,
                 'choice_label' => 'id',
             ])
         ;

@@ -4,7 +4,7 @@ namespace App\Form;
 
 use App\Entity\AnneeAnterieur;
 use App\Entity\AssuranceScolaire;
-use App\Entity\Atransport;
+use App\Entity\ATransport;
 use App\Entity\Classe;
 use App\Entity\Commune;
 use App\Entity\Eleve;
@@ -82,7 +82,7 @@ class EleveType extends AbstractType
                 'choice_label' => 'id',
             ])
             ->add('transport_eleve', EntityType::class, [
-                'class' => Atransport::class,
+                'class' => ATransport::class,
                 'choice_label' => 'id',
             ])
         ;
