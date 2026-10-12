@@ -1,9 +1,0 @@
-{{ form_start(form, { attr: { class: 'crud-form' } }) }}
-    {{ form_errors(form) }}
-    <div class="crud-form__fields">
-        {{ form_widget(form) }}
-    </div>
-    <div class="crud-form__actions">
-        <button class="fr-btn" type="submit">{{ button_label|default('Enregistrer') }}</button>
-    </div>
-{{ form_end(form) }}
