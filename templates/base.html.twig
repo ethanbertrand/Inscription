@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr" data-fr-scheme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{% block title %}Mon application{% endblock %}</title>
+
+    <link rel="icon" href="data:image/svg+xml,...">
+
+    {# DSFR #}
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/@gouvfr/dsfr/dist/dsfr.min.css">
+
+    {% block stylesheets %}
+    {% endblock %}
+
+    {% block javascripts %}
+        {% block importmap %}
+            {{ importmap('app') }}
+        {% endblock %}
+    {% endblock %}
+
+    
+    {% set frankenphp_hot_reload = app.request.server.get('FRANKENPHP_HOT_RELOAD') %}
+
+    {% if frankenphp_hot_reload %}
+        <meta name="frankenphp-hot-reload:url"
+              content="{{ frankenphp_hot_reload }}">
+
+        <script src="https://cdn.jsdelivr.net/npm/idiomorph"></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/frankenphp-hot-reload/+esm"
+            type="module">
+        </script>
+    {% endif %}
+</head>
+
+<body class="fr-background-alt--grey">
+    <div class="fr-app" id="top">
+
+        {% block body %}
+        {% endblock %}
+
+    </div>
+
+    {# DSFR JavaScript #}
+    <script type="module"
+            src="https://cdn.jsdelivr.net/npm/@gouvfr/dsfr/dist/dsfr.module.min.js">
+    </script>
+</body>
+</html>
