@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/securite/social')]
+#[Route('/securitesocial')]
 final class SecuriteSocialController extends AbstractController
 {
     #[Route(name: 'app_securite_social_index', methods: ['GET'])]

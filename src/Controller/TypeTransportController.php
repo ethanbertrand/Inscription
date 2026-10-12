@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/type/transport')]
+#[Route('/typetransport')]
 final class TypeTransportController extends AbstractController
 {
     #[Route(name: 'app_type_transport_index', methods: ['GET'])]

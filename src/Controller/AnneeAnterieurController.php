@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/annee/anterieur')]
+#[Route('/anneeanterieur')]
 final class AnneeAnterieurController extends AbstractController
 {
     #[Route(name: 'app_annee_anterieur_index', methods: ['GET'])]
