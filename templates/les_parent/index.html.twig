@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}LesParent index{% endblock %}
+
+{% block body %}
+    <h1>LesParent index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Adresse</th>
+                <th>Tel_portable</th>
+                <th>Tel_fixe</th>
+                <th>Tel_entreprise</th>
+                <th>Poste</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for les_parent in les_parents %}
+            <tr>
+                <td>{{ les_parent.id }}</td>
+                <td>{{ les_parent.Nom }}</td>
+                <td>{{ les_parent.Prenom }}</td>
+                <td>{{ les_parent.Adresse }}</td>
+                <td>{{ les_parent.TelPortable }}</td>
+                <td>{{ les_parent.TelFixe }}</td>
+                <td>{{ les_parent.TelEntreprise }}</td>
+                <td>{{ les_parent.Poste }}</td>
+                <td>
+                    <a href="{{ path('app_les_parent_show', {'id': les_parent.id}) }}">show</a>
+                    <a href="{{ path('app_les_parent_edit', {'id': les_parent.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_les_parent_new') }}">Create new</a>
+{% endblock %}

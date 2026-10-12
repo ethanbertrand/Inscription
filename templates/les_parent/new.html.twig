@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New LesParent{% endblock %}
+
+{% block body %}
+    <h1>Create new LesParent</h1>
+
+    {{ include('les_parent/_form.html.twig') }}
+
+    <a href="{{ path('app_les_parent_index') }}">back to list</a>
+{% endblock %}
