@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Page 1{% endblock %}
+{% block title %}Elève{% endblock %}
 
 {% block body %}
     {% include 'header.html.twig' %}
@@ -28,7 +28,7 @@
                         <p class="fr-badge fr-badge--blue-france fr-mb-2w">Service d'inscription</p>
                         <h1 id="titre-principal">Information personnelles de l'étudiant</h1>
                         <br>
-                        <p>Pour cette première partie, nous allons vous demander ls informations personnelles de l'élève :</p >
+                        <p><b>Veuillez renseigner les informations suivantes :</b></p >
                         <br>
                         
                             <div class="fr-grid-row fr-grid-row--gutters">
@@ -66,7 +66,10 @@
                                 </div>
                             </div>
                             <br>
-                            <a class="fr-btn fr-btn--secondary" href="{{ path('app_acceuil') }}">Retour à l'accueil</a>    
+                            <a class="fr-btn" href="{{ path('app_page2') }}">Continuer l'inscription</a>
+                            </a>
+                            <a class="fr-btn fr-btn--secondary" href="{{ path('app_acceuil') }}">Retour à l'accueil</a>
+
                     </div>
                 </div>
             </section>
