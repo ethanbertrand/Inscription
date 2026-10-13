@@ -25,10 +25,11 @@ class ParentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('parentsEleve', EntityType::class, [
+            ->add('parent_eleve', EntityType::class, [
                 'class' => LesParent::class,
                 'choice_label' => 'id',
                 'placeholder' => 'Sélectionnez un parent',
+                'multiple' => true,
             ]);
     }
 

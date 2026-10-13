@@ -27,20 +27,19 @@ class SanteType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('medecin', EntityType::class, [
+            ->add('medecin_eleve', EntityType::class, [
                 'class' => Medecin::class,
                 'choice_label' => 'id',
                 'placeholder' => 'Sélectionnez un médecin',
             ])
-            ->add('centreSecuriteSocial', EntityType::class, [
+            ->add('secu_eleve', EntityType::class, [
                 'class' => SecuriteSocial::class,
                 'choice_label' => 'id',
                 'placeholder' => 'Sélectionnez un centre de sécurité sociale',
             ])
-            ->add('Date_Vaccin', DateType::class, ['widget' => 'single_text'])
+            ->add('date_vaccin', DateType::class, ['widget' => 'single_text'])
             ->add('Remarque_sante');
     }
 
 
 }
-

@@ -25,29 +25,38 @@ class ScolariteType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('Classe')
-            ->add('Regime', EntityType::class, [
+            ->add('classe_eleve', EntityType::class, [
+                'class' => Classe::class,
+                'choice_label' => 'Libelle',
+                'placeholder' => 'Sélectionnez une classe',
+            ])
+            ->add('regime_eleve', EntityType::class, [
                 'class' => Regime::class,
-                'choice_label' => 'nom',
+                'choice_label' => 'Regime',
                 'placeholder' => 'Sélectionnez un régime',
             ])
-            ->add('aTransport', EntityType::class, [
+            ->add('transport_eleve', EntityType::class, [
                 'class' => ATransport::class,
-                'choice_label' => 'nom',
+                'choice_label' => 'Libelle',
                 'placeholder' => 'Sélectionnez un type de transport',
             ])
-            ->add('mDL')
-            ->add('langueEleve', EntityType::class, [
-                'class' => Langue::class,
-                'choice_label' => 'nom',
-                'placeholder' => 'Sélectionnez une langue',
+            ->add('mdl_eleve', EntityType::class, [
+                'class' => MDL::class,
+                'choice_label' => 'id',
+                'placeholder' => 'Sélectionnez un MDL',
             ])
-            ->add('assuranceScolaire', EntityType::class, [
+            ->add('langueeleve', EntityType::class, [
+                'class' => Langue::class,
+                'choice_label' => 'Libelle',
+                'placeholder' => 'Sélectionnez une langue',
+                'multiple' => true,
+            ])
+            ->add('AssuranceScolaire', EntityType::class, [
                 'class' => AssuranceScolaire::class,
-                'choice_label' => 'nom',
+                'choice_label' => 'Nom',
                 'placeholder' => 'Sélectionnez une assurance scolaire',
             ])
-            ->add('Num_Assurance_scolaire');
+            ->add('Num_assurance_scolaire');
     }
 
 
