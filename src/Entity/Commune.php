@@ -127,4 +127,19 @@ class Commune
 
         return $this;
     }
+
+    #[ORM\Column(length: 5, unique: true, nullable: true)]
+    private ?string $codeInsee = null;
+
+    public function getCodeInsee(): ?string
+    {
+        return $this->codeInsee;
+    }
+
+    public function setCodeInsee(?string $codeInsee): static
+    {
+        $this->codeInsee = $codeInsee;
+
+        return $this;
+    }
 }

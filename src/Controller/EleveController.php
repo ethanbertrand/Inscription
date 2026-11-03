@@ -68,6 +68,10 @@ public function edit(Request $request, Eleve $eleve, EntityManagerInterface $em)
     ]);
     $flow->handleRequest($request);
 
+    if ($flow->isSubmitted() && $flow->isValid()) {
+        $this->savePhoto($eleve);
+    }
+
     // Dernière étape terminée : on publie et on quitte
     if ($flow->isSubmitted() && $flow->isValid() && $flow->isFinished()) {
         $eleve->setStatus('published');
@@ -94,5 +98,19 @@ public function edit(Request $request, Eleve $eleve, EntityManagerInterface $em)
         'form' => $stepForm,
         'eleve' => $eleve,
     ], new Response(status: $status));
+}
+private function savePhoto(Eleve $eleve): void
+{
+    $file = $eleve->getPhotoFile();
+    if (!$file) {
+        return;   // aucune nouvelle photo : on garde l'ancienne
+    }
+
+    $dir = $this->getParameter('kernel.project_dir').'/public/uploads/photos';
+    $name = bin2hex(random_bytes(8)).'.'.$file->guessExtension();
+
+    $file->move($dir, $name);
+    $eleve->setPhoto($name);
+    $eleve->setPhotoFile(null);
 }
 }

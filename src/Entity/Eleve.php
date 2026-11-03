@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 #[ORM\Entity(repositoryClass: EleveRepository::class)]
 class Eleve
@@ -72,7 +73,6 @@ class Eleve
     #[ORM\Column(nullable: true)]
     private ?bool $accepte_sms = null;
 
-    #[Assert\NotBlank(groups: ['identite'])]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $photo = null;
 
@@ -496,6 +496,21 @@ public function getCurrentStep(): string
 public function setCurrentStep(string $currentStep): static
 {
     $this->currentStep = $currentStep;
+
+    return $this;
+}
+
+#[Assert\Image(maxSize: '5M', groups: ['identite'])]
+private ?UploadedFile $photoFile = null;
+
+public function getPhotoFile(): ?UploadedFile
+{
+    return $this->photoFile;
+}
+
+public function setPhotoFile(?UploadedFile $photoFile): static
+{
+    $this->photoFile = $photoFile;
 
     return $this;
 }

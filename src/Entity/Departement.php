@@ -75,4 +75,19 @@ class Departement
 
         return $this;
     }
+
+    #[ORM\Column(length: 3, unique: true, nullable: true)]
+private ?string $code = null;
+
+    public function getCode(): ?string
+    {
+        return $this->code;
+    }
+
+    public function setCode(?string $code): static
+    {
+        $this->code = $code;
+
+        return $this;
+    }
 }
