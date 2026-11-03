@@ -11,7 +11,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
+<<<<<<< HEAD
 #[Route('/parents')]
+=======
+#[Route('parent')]
+>>>>>>> cbdded2eddd4f2a5ffc35d37f654f124f10137e4
 final class LesParentController extends AbstractController
 {
     #[Route(name: 'app_les_parent_index', methods: ['GET'])]
