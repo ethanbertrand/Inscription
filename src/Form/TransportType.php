@@ -15,11 +15,15 @@ class TransportType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('Ligne')
-            ->add('Immatriculation')
+            ->add('Ligne', null, [
+                'required' => false,
+            ])
+            ->add('Immatriculation', null, [
+                'required' => false,
+            ])
             ->add('typeTransport', EntityType::class, [
                 'class' => TypeTransport::class,
-                'choice_label' => 'id',
+                'choice_label' => 'libelle',
             ])
             ->add('auntransport', EntityType::class, [
                 'class' => ATransport::class,

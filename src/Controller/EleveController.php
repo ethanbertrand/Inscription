@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Form\Eleve\EleveFlowType;
 use Symfony\Component\Form\Flow\DataStorage\NullDataStorage;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 #[Route('/eleve')]
 final class EleveController extends AbstractController

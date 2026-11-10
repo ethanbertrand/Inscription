@@ -6,6 +6,9 @@ use App\Repository\MDLRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 #[ORM\Entity(repositoryClass: MDLRepository::class)]
 class MDL
@@ -105,4 +108,33 @@ class MDL
 
         return $this;
     }
+    #[Assert\Callback(groups: ['scolarite'])]
+public function validateAdhesion(ExecutionContextInterface $context): void
+{
+    if ($this->Adhesion && !$this->Cheque) {
+        $context->buildViolation('Le chèque est obligatoire pour adhérer à la MDL.')
+            ->atPath('Cheque')
+            ->addViolation();
+    }
+}
+#[Assert\Image(
+    maxSize: '5M',
+    mimeTypes: ['image/jpeg', 'image/png', 'image/webp'],
+    mimeTypesMessage: 'Seuls les formats JPEG, PNG et WebP sont acceptés.',
+    maxSizeMessage: 'La photo ne doit pas dépasser 5 Mo.',
+    groups: ['scolarite'],
+)]
+private ?UploadedFile $photoFile = null;
+
+public function getPhotoFile(): ?UploadedFile
+{
+    return $this->photoFile;
+}
+
+public function setPhotoFile(?UploadedFile $photoFile): static
+{
+    $this->photoFile = $photoFile;
+
+    return $this;
+}
 }

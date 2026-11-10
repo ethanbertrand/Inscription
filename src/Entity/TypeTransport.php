@@ -75,4 +75,14 @@ class TypeTransport
 
         return $this;
     }
+
+    public function isImmatriculationRequise(): bool
+    {
+        return in_array(mb_strtolower((string) $this->Libelle), ['voiture', 'moto', 'scooter'], true);
+    }
+
+    public function isLigneUtile(): bool
+    {
+        return !in_array(mb_strtolower((string) $this->Libelle), ['voiture', 'moto', 'scooter', 'vélo', 'velo'], true);
+    }
 }

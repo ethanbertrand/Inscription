@@ -25,6 +25,8 @@ final class Version20261013144716 extends AbstractMigration
         $this->addSql('ALTER TABLE departement ADD code VARCHAR(3) DEFAULT NULL');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_C1765B6377153098 ON departement (code)');
         $this->addSql('ALTER TABLE eleve MODIFY accepte_sms BOOLEAN DEFAULT NULL;');
+        $this->addSql('ALTER TABLE transport MODIFY ligne varchar(255) NULL;');
+        $this->addSql('ALTER TABLE transport MODIFY immatriculation varchar(255) NULL;');
     }
 
     public function down(Schema $schema): void
@@ -35,5 +37,7 @@ final class Version20261013144716 extends AbstractMigration
         $this->addSql('DROP INDEX UNIQ_C1765B6377153098 ON departement');
         $this->addSql('ALTER TABLE departement DROP code');
         $this->addSql('ALTER TABLE eleve MODIFY accepte_sms BOOLEAN DEFAULT NULL;');
+        $this->addSql('ALTER TABLE transport MODIFY ligne varchar(255) NULL;');
+        $this->addSql('ALTER TABLE transport MODIFY immatriculation varchar(255) NULL;');
     }
 }

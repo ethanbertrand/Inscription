@@ -20,6 +20,9 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 class ScolariteType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -35,16 +38,19 @@ class ScolariteType extends AbstractType
                 'choice_label' => 'Regime',
                 'placeholder' => 'Sélectionnez un régime',
             ])
-            ->add('transport_eleve', EntityType::class, [
-                'class' => ATransport::class,
-                'choice_label' => 'Libelle',
-                'placeholder' => 'Sélectionnez un type de transport',
+           ->add('transports', CollectionType::class, [
+                'entry_type' => TransportType::class,
+                'entry_options' => ['label' => false],
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+                'label' => 'Transports',
+                'attr' => ['class' => 'js-transports'],
             ])
-            ->add('mdl_eleve', EntityType::class, [
-                'class' => MDL::class,
-                'choice_label' => 'id',
-                'placeholder' => 'Sélectionnez un MDL',
-            ])
+            ->add('mdl_eleve', MdlAdhesionType::class, [
+    'label' => false,
+    'required' => false,
+])
             ->add('langueeleve', EntityType::class, [
                 'class' => Langue::class,
                 'choice_label' => 'Libelle',

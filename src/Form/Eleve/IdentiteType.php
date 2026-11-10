@@ -39,9 +39,10 @@ class IdentiteType extends AbstractType
                 'placeholder' => false,
                 ])
             ->add('photoFile', FileType::class, [
-                    'label' => 'Photo',
-                    'required' => false,
-                ])
+                'label' => 'Photo',
+                'required' => false,
+                'attr' => ['accept' => 'image/jpeg,image/png,image/webp'],
+            ])
             ->add('Num_securite_social');
     }
 

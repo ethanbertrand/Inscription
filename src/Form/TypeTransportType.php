@@ -22,4 +22,8 @@ class TypeTransportType extends AbstractType
             'data_class' => TypeTransport::class,
         ]);
     }
+    public function isLigneUtile(): bool
+{
+    return !in_array(mb_strtolower((string) $this->Libelle), ['voiture', 'moto', 'scooter', 'vélo', 'velo'], true);
+}
 }

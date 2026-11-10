@@ -1,13 +1,14 @@
-<?php 
+<?php
+
 namespace App\Entity;
 
-use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\EleveRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: EleveRepository::class)]
 class Eleve
@@ -16,6 +17,8 @@ class Eleve
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
+
+    // ---------- Étape identite ----------
 
     #[Assert\NotBlank(groups: ['identite'])]
     #[ORM\Column(length: 255, nullable: true)]
@@ -33,29 +36,106 @@ class Eleve
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTime $date_naissance = null;
 
+    #[Assert\NotBlank(groups: ['identite'])]
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $Sexe = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $photo = null;
+
+    #[Assert\Image(
+        maxSize: '5M',
+        mimeTypes: ['image/jpeg', 'image/png', 'image/webp'],
+        mimeTypesMessage: 'Seuls les formats JPEG, PNG et WebP sont acceptés.',
+        maxSizeMessage: 'La photo ne doit pas dépasser 5 Mo.',
+        groups: ['identite'],
+    )]
+    private ?UploadedFile $photoFile = null;   // non enregistré en base
+
+    // ---------- Étape coordonnees ----------
+
     #[Assert\NotBlank(groups: ['coordonnees'])]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $Adresse = null;
+
+    #[Assert\NotNull(groups: ['coordonnees'])]
+    #[ORM\ManyToOne(inversedBy: 'eleves')]
+    private ?Commune $Commune_eleve = null;
 
     #[Assert\NotBlank(groups: ['coordonnees'])]
     #[ORM\Column(nullable: true)]
     private ?int $Num_tel = null;
 
     #[Assert\NotBlank(groups: ['coordonnees'])]
+    #[ORM\Column(nullable: true)]
+    private ?int $Num_tel_domicile = null;
+
+    #[Assert\NotBlank(groups: ['coordonnees'])]
+    #[ORM\Column(nullable: true)]
+    private ?int $Tel_urgence = null;
+
+    #[Assert\NotBlank(groups: ['coordonnees'])]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $mail = null;
 
-    #[Assert\NotBlank(groups: ['identite'])]
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $Sexe = null;
+    #[Assert\NotBlank(groups: ['coordonnees'])]
+    #[ORM\Column(nullable: true)]
+    private ?bool $accepte_sms = null;
+
+    // ---------- Étape scolarite ----------
+
+    #[Assert\NotNull(groups: ['scolarite'])]
+    #[ORM\ManyToOne(inversedBy: 'eleves')]
+    private ?Classe $classe_eleve = null;
+
+    #[Assert\NotNull(groups: ['scolarite'])]
+    #[ORM\ManyToOne(inversedBy: 'eleves')]
+    private ?Regime $regime_eleve = null;
+
+#[ORM\ManyToOne(inversedBy: 'eleves', cascade: ['persist'])]
+#[Assert\Valid(groups: ['scolarite'])]
+private ?MDL $mdl_eleve = null;
+
+    /**
+     * @var Collection<int, Langue>
+     */
+    #[Assert\NotNull(groups: ['scolarite'])]
+    #[ORM\ManyToMany(targetEntity: Langue::class, inversedBy: 'eleves')]
+    private Collection $langueeleve;
+
+    #[Assert\NotNull(groups: ['scolarite'])]
+    #[ORM\ManyToOne(inversedBy: 'eleves')]
+    private ?AssuranceScolaire $AssuranceScolaire = null;
 
     #[Assert\NotBlank(groups: ['scolarite'])]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $Num_assurance_scolaire = null;
 
-    #[Assert\NotBlank(groups: ['coordonnees'])]
-    #[ORM\Column(nullable: true)]
-    private ?int $Tel_urgence = null;
+    /**
+     * @var Collection<int, Transport>
+     */
+    #[ORM\OneToMany(
+        targetEntity: Transport::class,
+        mappedBy: 'eleve',
+        cascade: ['persist', 'remove'],
+        orphanRemoval: true,
+    )]
+    #[Assert\Valid(groups: ['scolarite'])]
+    private Collection $transports;
+
+    // Ancienne relation : plus utilisée par le formulaire, gardée pour ne pas migrer
+    #[ORM\ManyToOne(inversedBy: 'eleves')]
+    private ?ATransport $transport_eleve = null;
+
+    // ---------- Étape sante ----------
+
+    #[Assert\NotNull(groups: ['sante'])]
+    #[ORM\ManyToOne(inversedBy: 'eleves')]
+    private ?Medecin $medecin_eleve = null;
+
+    #[Assert\NotNull(groups: ['sante'])]
+    #[ORM\ManyToOne(inversedBy: 'eleves')]
+    private ?SecuriteSocial $secu_eleve = null;
 
     #[Assert\NotNull(groups: ['sante'])]
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
@@ -65,28 +145,7 @@ class Eleve
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $Remarque_sante = null;
 
-    #[Assert\NotBlank(groups: ['coordonnees'])]
-    #[ORM\Column(nullable: true)]
-    private ?int $Num_tel_domicile = null;
-
-    #[Assert\NotBlank(groups: ['coordonnees'])]
-    #[ORM\Column(nullable: true)]
-    private ?bool $accepte_sms = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $photo = null;
-
-    #[Assert\NotNull(groups: ['scolarite'])]
-    #[ORM\ManyToOne(inversedBy: 'eleves')]
-    private ?Classe $classe_eleve = null;
-
-    #[Assert\NotNull(groups: ['sante'])]
-    #[ORM\ManyToOne(inversedBy: 'eleves')]
-    private ?Medecin $medecin_eleve = null;
-
-    #[Assert\NotNull(groups: ['scolarite'])]
-    #[ORM\ManyToOne(inversedBy: 'eleves')]
-    private ?MDL $mdl_eleve = null;
+    // ---------- Étape parents ----------
 
     /**
      * @var Collection<int, LesParent>
@@ -94,45 +153,24 @@ class Eleve
     #[ORM\ManyToMany(targetEntity: LesParent::class, inversedBy: 'eleves')]
     private Collection $parent_eleve;
 
-    #[Assert\NotNull(groups: ['coordonnees'])]
-    #[ORM\ManyToOne(inversedBy: 'eleves')]
-    private ?Commune $Commune_eleve = null;
+    // ---------- Autres ----------
 
     #[ORM\ManyToOne(inversedBy: 'eleves')]
     private ?AnneeAnterieur $annee_anterieur_eleve = null;
 
-    /**
-     * @var Collection<int, Langue>
-     */
-    #[Assert\NotNull(groups: ['scolarite'])]
-    #[ORM\ManyToMany(targetEntity: Langue::class, inversedBy: 'eleves')]
-    private Collection $langueeleve;
-
-    #[Assert\NotNull(groups: ['sante'])]
-    #[ORM\ManyToOne(inversedBy: 'eleves')]
-    private ?SecuriteSocial $secu_eleve = null;
+    // ---------- Suivi du flow ----------
 
     #[ORM\Column(length: 20)]
     private string $status = 'draft';
 
     #[ORM\Column(length: 50)]
     private string $currentStep = 'identite';
-    #[Assert\NotNull(groups: ['scolarite'])]
-    #[ORM\ManyToOne(inversedBy: 'eleves')]
-    private ?AssuranceScolaire $AssuranceScolaire = null;
-
-    #[Assert\NotNull(groups: ['scolarite'])]
-    #[ORM\ManyToOne(inversedBy: 'eleves')]
-    private ?Regime $regime_eleve = null;
-
-    #[Assert\NotNull(groups: ['scolarite'])]
-    #[ORM\ManyToOne(inversedBy: 'eleves')]
-    private ?ATransport $transport_eleve = null;
 
     public function __construct()
     {
         $this->parent_eleve = new ArrayCollection();
         $this->langueeleve = new ArrayCollection();
+        $this->transports = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -320,6 +358,18 @@ class Eleve
         return $this;
     }
 
+    public function getPhotoFile(): ?UploadedFile
+    {
+        return $this->photoFile;
+    }
+
+    public function setPhotoFile(?UploadedFile $photoFile): static
+    {
+        $this->photoFile = $photoFile;
+
+        return $this;
+    }
+
     public function getClasseEleve(): ?Classe
     {
         return $this->classe_eleve;
@@ -476,42 +526,56 @@ class Eleve
         return $this;
     }
 
+    /**
+     * @return Collection<int, Transport>
+     */
+    public function getTransports(): Collection
+    {
+        return $this->transports;
+    }
+
+    public function addTransport(Transport $transport): static
+    {
+        if (!$this->transports->contains($transport)) {
+            $this->transports->add($transport);
+            $transport->setEleve($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTransport(Transport $transport): static
+    {
+        if ($this->transports->removeElement($transport)) {
+            if ($transport->getEleve() === $this) {
+                $transport->setEleve(null);
+            }
+        }
+
+        return $this;
+    }
+
     public function getStatus(): string
-{
-    return $this->status;
-}
+    {
+        return $this->status;
+    }
 
-public function setStatus(string $status): static
-{
-    $this->status = $status;
+    public function setStatus(string $status): static
+    {
+        $this->status = $status;
 
-    return $this;
-}
+        return $this;
+    }
 
-public function getCurrentStep(): string
-{
-    return $this->currentStep;
-}
+    public function getCurrentStep(): string
+    {
+        return $this->currentStep;
+    }
 
-public function setCurrentStep(string $currentStep): static
-{
-    $this->currentStep = $currentStep;
+    public function setCurrentStep(string $currentStep): static
+    {
+        $this->currentStep = $currentStep;
 
-    return $this;
-}
-
-#[Assert\Image(maxSize: '5M', groups: ['identite'])]
-private ?UploadedFile $photoFile = null;
-
-public function getPhotoFile(): ?UploadedFile
-{
-    return $this->photoFile;
-}
-
-public function setPhotoFile(?UploadedFile $photoFile): static
-{
-    $this->photoFile = $photoFile;
-
-    return $this;
-}
+        return $this;
+    }
 }

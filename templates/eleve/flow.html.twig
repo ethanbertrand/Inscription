@@ -65,4 +65,93 @@
             </section>
         </div>
     </main>
+// Script qui permet de vérifier le format du fichier image avant l'envoi du formulaire
+<script>
+document.addEventListener('change', (event) => {
+    const input = event.target;
+    if (!input.matches('input[type="file"][name$="[photoFile]"]')) {
+        return;
+    }
+
+    const allowed = ['image/jpeg', 'image/png', 'image/webp'];
+    const file = input.files[0];
+
+    if (file && !allowed.includes(file.type)) {
+        alert('Format non autorisé. Choisissez une image JPEG, PNG ou WebP.');
+        input.value = '';
+    }
+});
+</script>
+
+//Script pour les transports pour savoir si plaque d'immatriculation est obligatoire ou non
+<script>
+(() => {
+    const form = document.querySelector('form.crud-form') ?? document.querySelector('form');
+    const list = form.querySelector('.js-transports');
+    if (!list) return;   // pas sur cette étape
+
+    let index = list.children.length;
+
+    const toggle = (row, visible) => {
+    if (!row) return;
+    row.hidden = !visible;
+    // un champ désactivé n'est pas envoyé : la valeur sera vide côté serveur
+    row.querySelectorAll('input').forEach((el) => { el.disabled = !visible; });
+};
+
+const refreshEntry = (entry) => {
+    const select = entry.querySelector('.js-type-transport');
+    if (!select) return;
+    const option = select.selectedOptions[0];
+
+    toggle(entry.querySelector('.js-row-plaque'), option?.dataset.plaque === '1');
+    toggle(entry.querySelector('.js-row-ligne'), option?.dataset.ligne !== '0');
+};
+
+    const decorate = (entry) => {
+        if (!entry.querySelector('.js-remove')) {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'js-remove';
+            btn.textContent = 'Supprimer ce transport';
+            btn.addEventListener('click', () => entry.remove());
+            entry.appendChild(btn);
+        }
+        refreshEntry(entry);
+    };
+
+    const add = document.createElement('button');
+    add.type = 'button';
+    add.textContent = 'Ajouter un transport';
+    add.addEventListener('click', () => {
+        const wrapper = document.createElement('div');
+        wrapper.innerHTML = list.dataset.prototype.replace(/__name__/g, index++);
+        list.appendChild(wrapper);
+        decorate(wrapper);
+    });
+    list.after(add);
+
+    [...list.children].forEach(decorate);
+    form.addEventListener('change', () => [...list.children].forEach(refreshEntry));
+})();
+</script>
+<script>
+(() => {
+    const form = document.querySelector('form.crud-form') ?? document.querySelector('form');
+    const check = form.querySelector('input[type="checkbox"][name$="[mdl_eleve][Adhesion]"]');
+    const rows = form.querySelectorAll('.js-row-mdl');
+    if (!check || rows.length === 0) return;   // pas sur cette étape
+
+    const refresh = () => {
+        rows.forEach((row) => {
+            row.hidden = !check.checked;
+            // un champ désactivé n'est pas envoyé : il sera vide côté serveur
+            row.querySelectorAll('input').forEach((el) => { el.disabled = !check.checked; });
+        });
+    };
+
+    check.addEventListener('change', refresh);
+    refresh();   // état initial (reprise d'un brouillon)
+})();
+</script>
 {% endblock %}

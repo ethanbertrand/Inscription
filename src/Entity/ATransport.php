@@ -18,11 +18,6 @@ class ATransport
     #[ORM\Column(length: 255)]
     private ?string $Libelle = null;
 
-    /**
-     * @var Collection<int, Transport>
-     */
-    #[ORM\OneToMany(targetEntity: Transport::class, mappedBy: 'auntransport')]
-    private Collection $transports;
 
     /**
      * @var Collection<int, Eleve>
@@ -32,7 +27,6 @@ class ATransport
 
     public function __construct()
     {
-        $this->transports = new ArrayCollection();
         $this->eleves = new ArrayCollection();
     }
 
@@ -53,35 +47,9 @@ class ATransport
         return $this;
     }
 
-    /**
-     * @return Collection<int, Transport>
-     */
-    public function getTransports(): Collection
-    {
-        return $this->transports;
-    }
+    
 
-    public function addTransport(Transport $transport): static
-    {
-        if (!$this->transports->contains($transport)) {
-            $this->transports->add($transport);
-            $transport->setAuntransport($this);
-        }
-
-        return $this;
-    }
-
-    public function removeTransport(Transport $transport): static
-    {
-        if ($this->transports->removeElement($transport)) {
-            // set the owning side to null (unless already changed)
-            if ($transport->getAuntransport() === $this) {
-                $transport->setAuntransport(null);
-            }
-        }
-
-        return $this;
-    }
+    
 
     /**
      * @return Collection<int, Eleve>
