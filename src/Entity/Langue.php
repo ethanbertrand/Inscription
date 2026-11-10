@@ -33,18 +33,8 @@ class Langue
     #[ORM\OneToMany(targetEntity: AnneeAnterieur::class, mappedBy: 'langue')]
     private Collection $lv2;
 
-    /**
-     * @var Collection<int, Eleve>
-     */
-    #[ORM\ManyToMany(targetEntity: Eleve::class, mappedBy: 'langueeleve')]
-    private Collection $eleves;
+ 
 
-    public function __construct()
-    {
-        $this->lv1 = new ArrayCollection();
-        $this->lv2 = new ArrayCollection();
-        $this->eleves = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -135,30 +125,5 @@ class Langue
         return $this;
     }
 
-    /**
-     * @return Collection<int, Eleve>
-     */
-    public function getEleves(): Collection
-    {
-        return $this->eleves;
-    }
 
-    public function addElefe(Eleve $elefe): static
-    {
-        if (!$this->eleves->contains($elefe)) {
-            $this->eleves->add($elefe);
-            $elefe->addLangueeleve($this);
-        }
-
-        return $this;
-    }
-
-    public function removeElefe(Eleve $elefe): static
-    {
-        if ($this->eleves->removeElement($elefe)) {
-            $elefe->removeLangueeleve($this);
-        }
-
-        return $this;
-    }
 }

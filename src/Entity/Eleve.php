@@ -9,6 +9,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 #[ORM\Entity(repositoryClass: EleveRepository::class)]
 class Eleve
@@ -97,11 +98,17 @@ class Eleve
 private ?MDL $mdl_eleve = null;
 
     /**
-     * @var Collection<int, Langue>
-     */
-    #[Assert\NotNull(groups: ['scolarite'])]
-    #[ORM\ManyToMany(targetEntity: Langue::class, inversedBy: 'eleves')]
-    private Collection $langueeleve;
+ * @var Collection<int, LangueEleve>
+ */
+#[ORM\OneToMany(
+    targetEntity: LangueEleve::class,
+    mappedBy: 'eleve',
+    cascade: ['persist', 'remove'],
+    orphanRemoval: true,
+)]
+#[Assert\Valid(groups: ['scolarite'])]
+#[Assert\Count(min: 1, minMessage: 'Choisissez au moins une langue.', groups: ['scolarite'])]
+private Collection $langueEleves;
 
     #[Assert\NotNull(groups: ['scolarite'])]
     #[ORM\ManyToOne(inversedBy: 'eleves')]
@@ -169,7 +176,7 @@ private ?MDL $mdl_eleve = null;
     public function __construct()
     {
         $this->parent_eleve = new ArrayCollection();
-        $this->langueeleve = new ArrayCollection();
+        $this->langueEleves = new ArrayCollection();
         $this->transports = new ArrayCollection();
     }
 
@@ -454,29 +461,59 @@ private ?MDL $mdl_eleve = null;
         return $this;
     }
 
-    /**
-     * @return Collection<int, Langue>
-     */
-    public function getLangueeleve(): Collection
-    {
-        return $this->langueeleve;
+   /**
+ * @return Collection<int, LangueEleve>
+ */
+public function getLangueEleves(): Collection
+{
+    return $this->langueEleves;
+}
+
+public function addLangueEleve(LangueEleve $langueEleve): static
+{
+    if (!$this->langueEleves->contains($langueEleve)) {
+        $this->langueEleves->add($langueEleve);
+        $langueEleve->setEleve($this);
     }
 
-    public function addLangueeleve(Langue $langueeleve): static
-    {
-        if (!$this->langueeleve->contains($langueeleve)) {
-            $this->langueeleve->add($langueeleve);
+    return $this;
+}
+
+public function removeLangueEleve(LangueEleve $langueEleve): static
+{
+    if ($this->langueEleves->removeElement($langueEleve)) {
+        if ($langueEleve->getEleve() === $this) {
+            $langueEleve->setEleve(null);
         }
-
-        return $this;
     }
 
-    public function removeLangueeleve(Langue $langueeleve): static
-    {
-        $this->langueeleve->removeElement($langueeleve);
+    return $this;
+}
 
-        return $this;
+#[Assert\Callback(groups: ['scolarite'])]
+public function validateLangues(ExecutionContextInterface $context): void
+{
+    $langues = [];
+    $lvs = [];
+
+    foreach ($this->langueEleves as $langueEleve) {
+        $langueId = $langueEleve->getLangue()?->getId();
+        if ($langueId !== null && in_array($langueId, $langues, true)) {
+            $context->buildViolation('Une langue ne peut être choisie qu\'une seule fois.')
+                ->atPath('langueEleves')->addViolation();
+            return;
+        }
+        $langues[] = $langueId;
+
+        $lv = $langueEleve->getLv();
+        if ($lv !== null && in_array($lv, $lvs, true)) {
+            $context->buildViolation('LV1 et LV2 ne peuvent être attribuées qu\'une seule fois.')
+                ->atPath('langueEleves')->addViolation();
+            return;
+        }
+        $lvs[] = $lv;
     }
+}
 
     public function getSecuEleve(): ?SecuriteSocial
     {

@@ -26,6 +26,8 @@ final class Version20261104075259 extends AbstractMigration
         $this->addSql('ALTER TABLE transport CHANGE auntransport_id eleve_id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE transport ADD CONSTRAINT FK_66AB212EA6CC7B2 FOREIGN KEY (eleve_id) REFERENCES eleve (id)');
         $this->addSql('CREATE INDEX IDX_66AB212EA6CC7B2 ON transport (eleve_id)');
+        $this->addSql('ALTER TABLE langue DROP COLUMN lv;');
+        $this->addSql('ALTER TABLE eleve_langue ADD COLUMN lv int;');
     }
 
     public function down(Schema $schema): void
@@ -37,5 +39,7 @@ final class Version20261104075259 extends AbstractMigration
         $this->addSql('ALTER TABLE transport CHANGE eleve_id auntransport_id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE transport ADD CONSTRAINT `FK_66AB212E5413917A` FOREIGN KEY (auntransport_id) REFERENCES atransport (id)');
         $this->addSql('CREATE INDEX IDX_66AB212E5413917A ON transport (auntransport_id)');
+        $this->addSql('ALTER TABLE langue DROP COLUMN lv;');
+        $this->addSql('ALTER TABLE eleve_langue DROP COLUMN lv;');
     }
 }

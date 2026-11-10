@@ -51,12 +51,15 @@ class ScolariteType extends AbstractType
     'label' => false,
     'required' => false,
 ])
-            ->add('langueeleve', EntityType::class, [
-                'class' => Langue::class,
-                'choice_label' => 'Libelle',
-                'placeholder' => 'Sélectionnez une langue',
-                'multiple' => true,
-            ])
+            ->add('langueEleves', CollectionType::class, [
+    'entry_type' => LangueEleveType::class,
+    'entry_options' => ['label' => false],
+    'allow_add' => true,
+    'allow_delete' => true,
+    'by_reference' => false,
+    'label' => 'Langues',
+    'attr' => ['class' => 'js-langues'],
+])
             ->add('AssuranceScolaire', EntityType::class, [
                 'class' => AssuranceScolaire::class,
                 'choice_label' => 'Nom',

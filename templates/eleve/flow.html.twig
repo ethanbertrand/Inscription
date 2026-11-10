@@ -154,4 +154,35 @@ const refreshEntry = (entry) => {
     refresh();   // état initial (reprise d'un brouillon)
 })();
 </script>
+<script>
+(() => {
+    const list = document.querySelector('.js-langues');
+    if (!list) return;   // pas sur cette étape
+
+    let index = list.children.length;
+
+    const decorate = (entry) => {
+        if (entry.querySelector('.js-remove')) return;
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'js-remove';
+        btn.textContent = 'Supprimer cette langue';
+        btn.addEventListener('click', () => entry.remove());
+        entry.appendChild(btn);
+    };
+
+    const add = document.createElement('button');
+    add.type = 'button';
+    add.textContent = 'Ajouter une langue';
+    add.addEventListener('click', () => {
+        const wrapper = document.createElement('div');
+        wrapper.innerHTML = list.dataset.prototype.replace(/__name__/g, index++);
+        list.appendChild(wrapper);
+        decorate(wrapper);
+    });
+    list.after(add);
+
+    [...list.children].forEach(decorate);
+})();
+</script>
 {% endblock %}
