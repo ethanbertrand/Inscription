@@ -185,4 +185,27 @@ const refreshEntry = (entry) => {
     [...list.children].forEach(decorate);
 })();
 </script>
+<script>
+(() => {
+    const form = document.querySelector('form.crud-form') ?? document.querySelector('form');
+    const check = form.querySelector('input[type="checkbox"][name$="[ajouterAssurance]"]');
+    const selectRow = form.querySelector('.js-row-assurance-select');
+    const newRows = form.querySelectorAll('.js-row-assurance-new');
+    if (!check || !selectRow || newRows.length === 0) return;   // pas sur cette étape
+
+    const setState = (row, visible) => {
+        row.hidden = !visible;
+        // un champ désactivé n'est pas envoyé
+        row.querySelectorAll('input, select').forEach((el) => { el.disabled = !visible; });
+    };
+
+    const refresh = () => {
+        setState(selectRow, !check.checked);
+        newRows.forEach((row) => setState(row, check.checked));
+    };
+
+    check.addEventListener('change', refresh);
+    refresh();   // état initial (reprise d'un brouillon)
+})();
+</script>
 {% endblock %}

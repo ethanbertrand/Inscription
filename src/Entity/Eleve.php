@@ -111,7 +111,7 @@ private ?MDL $mdl_eleve = null;
 private Collection $langueEleves;
 
     #[Assert\NotNull(groups: ['scolarite'])]
-    #[ORM\ManyToOne(inversedBy: 'eleves')]
+    #[ORM\ManyToOne(inversedBy: 'eleves', cascade: ['persist'])]
     private ?AssuranceScolaire $AssuranceScolaire = null;
 
     #[Assert\NotBlank(groups: ['scolarite'])]
