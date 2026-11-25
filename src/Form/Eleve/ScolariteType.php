@@ -72,6 +72,7 @@ class ScolariteType extends AbstractType
                 'choice_label' => 'Nom',
                 'placeholder' => 'Sélectionnez une assurance scolaire',
                 'required' => false,
+                'mapped' => false,
                 'row_attr' => ['class' => 'js-row-assurance-select'],
             ])
             ->add('ajouterAssurance', CheckboxType::class, [
@@ -93,39 +94,11 @@ class ScolariteType extends AbstractType
             ])
             ->add('Num_assurance_scolaire');
 
-            $builder->addEventListener(FormEvents::SUBMIT, function (SubmitEvent $event) {
-                $form = $event->getForm();
-                if (!$form->get('ajouterAssurance')->getData()) {
-                    return;
-                }
-
-                $eleve = $form->getData();
-                if (!$eleve instanceof Eleve) {
-                    return;
-                }
-
-                $nom = trim((string) $form->get('nouvelleAssuranceNom')->getData());
-                $adresse = trim((string) $form->get('nouvelleAssuranceAdresse')->getData());
-
-                if ($nom === '') {
-                    $form->get('nouvelleAssuranceNom')->addError(new FormError("Indiquez le nom de l'assurance."));
-
-                    return;
-                }
-                if (mb_strlen($nom) > 50 || mb_strlen($adresse) > 50) {
-                    $form->get('nouvelleAssuranceNom')->addError(new FormError('Le nom et l\'adresse sont limités à 50 caractères.'));
-
-                    return;
-                }
-
-                // évite les doublons : on réutilise l'assurance si elle existe déjà
-                $assurance = $this->em->getRepository(AssuranceScolaire::class)
-                    ->findOneBy(['Nom' => $nom, 'Adresse' => $adresse])
-                    ?? (new AssuranceScolaire())->setNom($nom)->setAdresse($adresse);
-
-                $eleve->setAssuranceScolaire($assurance);
-            });
-    }
-
-
+            $builder->addEventListener(FormEvents::POST_SET_DATA, function (PostSetDataEvent $event) {
+        $eleve = $event->getForm()->getData();
+        if ($eleve instanceof Eleve) {
+            $event->getForm()->get('AssuranceScolaire')->setData($eleve->getAssuranceScolaire());
+        }
+    });
+}
 }

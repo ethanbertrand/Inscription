@@ -110,9 +110,8 @@ private ?MDL $mdl_eleve = null;
 #[Assert\Count(min: 1, minMessage: 'Choisissez au moins une langue.', groups: ['scolarite'])]
 private Collection $langueEleves;
 
-    #[Assert\NotNull(groups: ['scolarite'])]
     #[ORM\ManyToOne(inversedBy: 'eleves', cascade: ['persist'])]
-    private ?AssuranceScolaire $AssuranceScolaire = null;
+private ?AssuranceScolaire $AssuranceScolaire = null;
 
     #[Assert\NotBlank(groups: ['scolarite'])]
     #[ORM\Column(length: 255, nullable: true)]
